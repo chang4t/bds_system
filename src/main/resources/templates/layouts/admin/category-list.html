@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{layouts/admin/main-layout::main-fragment(  
+                ~{::title},
+                ~{:: #products-static-resources},
+                ~{:: #home-nav},
+                ~{:: #products-main-content},  
+                ~{:: #resources-footer},
+               )}">
+<head>
+<title>Danh mục bất động sản</title>
+<th:block id="products-static-resources"></th:block>
+</head>
+<body>
+  <th:block id="products-main-content">
+    <!-- Open modal -->
+    <a id="add_new" data-toggle="modal" data-target="#exampleModal" style="margin-bottom: 10px;" href="#" class="btn btn-success btn-icon-split"> <span class="icon text-white-50"> <i
+        class="fas fa-plus"></i>
+    </span> <span class="text">Thêm mới</span>
+    </a>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách danh mục tin</h6>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Tên danh mục</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="content_data">
+            </tbody>
+          </table>
+          <div style="text-align: center; margin-top: 5px;">
+            <button onclick="loadData(null)" class="btn btn-light btn-icon-split">
+              <span class="icon text-gray-600"> <i class="fas fa-arrow-right"></i>
+              </span> <span class="text">Tải thêm</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="title_modal">Thêm mới</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="col s12">
+              <input id="indexUpdate" type="hidden" />
+              <div class="form-group">
+                <label for="exampleInputEmail1">Tên danh mục</label> <input type="text" class="form-control" id="name" placeholder="Nhập tên danh mục"> <small style="color: red;"
+                  id="validate_name" class="form-text text-muted validate"></small>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button onclick="onCloseModal()" type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            <button id="confirm_save" type="button" class="btn btn-primary">Lưu danh mục</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- keep page number for load more item -->
+    <input id="page" type="hidden" value="1" />
+  </th:block>
+  <th:block id="resources-footer">
+    <!-- Page level custom scripts -->
+    <script src="/admin/js/demo/datatables-demo.js"></script>
+    <script id="my-template" type="x-tmpl-mustache">
+			<tr id="content_id_{{categoryId}}">
+				<td>{{categoryId}}</td>
+				<td>{{categoryName}}</td>
+				<td>
+                    <a href="#" onclick="onUpdate($(this));" class="btn btn-info btn-circle btn-sm">
+                        <i class="fas fa-edit"></i>
+                    </a>
+					<a href="#" onclick="onDelete($(this), '{{categoryId}}', '{{categoryName}}');" class="btn btn-danger btn-circle btn-sm">
+                        <i class="fas fa-trash"></i>
+                    </a>
+				</td>
+			</tr>
+		</script>
+    <script>
+			let tmpl = $('#my-template').html();
+			Mustache.parse(tmpl);
+		
+			$(document).ready(function() {
+				var modal = $('#modal1').modal();
+				loadData(0);
+
+				// open modal
+				$("#add_new").click(function() {
+					$("#title_modal").html("Thêm mới");
+				});
+
+				// Add item
+				$("#confirm_save").click(function(){
+					var data = {
+						categoryName: $("#name").val(),
+						categoryIdParent: $("select").val()
+					}
+
+					$(".validate").empty();
+					var updateId = $("#indexUpdate").val();
+					
+					if (updateId && updateId.length > 0) {
+						update(data, updateId);
+					} else {
+						save(data);
+					}
+				});
+			});
+			
+			function loadData(page) {
+				// load data
+				if (page == null) {
+					page = $("#page").val();
+				}
+
+				ajaxRequest("./category/get/" + page, "GET", null, function(data) {
+				    data.forEach((item) => {
+				        let rendered = Mustache.render(tmpl, item);
+				        $("#content_data").append(rendered);
+				    });
+
+				    $("#page").val(parseInt(page) + 1);
+				});	
+			}
+
+			function onDelete(obj, key, name) {
+				var r = confirm("Xác nhận xóa [" + name + "]");
+
+				if (r == true) {
+					ajaxRequest("./category/delete/" + key, "POST", null, function(data) {
+						obj.parents("tr").remove();
+					});
+				}
+			}
+			
+			function onUpdate(obj){
+				var id = obj.parents("tr").find("td")[0].textContent;
+				$("#title_modal").html("Cập nhật");
+				
+				ajaxRequest("./category/get/one/" + id, "GET", null, function(data) {
+					// set value into form
+					$("#indexUpdate").val(id);
+					$("#name").val(data.categoryName);
+					$('#exampleModal').modal('show');
+				});
+			}
+			
+			function save(data) {
+				ajaxRequest("./category/save", "POST", JSON.stringify(data), function(response) {
+					if (response.status == true) {
+						onCloseModal();
+
+						var item = response.data;
+				        let rendered = Mustache.render(tmpl, item);
+
+				        $("#content_data").prepend(rendered);
+				        $('#exampleModal').modal('hide')
+
+						return;
+					}
+
+					// display error
+					for (const key in response.data) {
+						$("#" + key).append(response.data[key]);
+					}
+				});
+			}
+
+			function update(data, id) {
+				ajaxRequest("./category/update/" + id, "POST", JSON.stringify(data), function(response) {
+					if (response.status == true) {
+						var item = response.data;
+				    	
+				    	var row = $("#content_id_" + item.categoryId);
+				    	row.find("td").eq(1).html(item.categoryName);
+				    	row.find("td").eq(2).html(item.price);
+				    	
+				    	$('#exampleModal').modal('hide')
+						return;
+					}
+
+					// display error
+					for (const key in response.data) {
+						$("#" + key).append(response.data[key]);
+					}
+				});
+			}
+
+			function ajaxRequest(url, method, data, calBackFuntion) {
+				var config = {
+					method : method,
+					url : url,
+					context : document.body,
+				};
+
+				if (data) {
+					config.data = data;
+					config.contentType = "application/json; charset=utf-8";
+				}
+
+				$.ajax(config).done(function(data) {
+					calBackFuntion(data);
+				});
+			}
+
+			function onCloseModal() {
+				$("input").val("");
+			}
+		</script>
+  </th:block>
+</body>
+</html>

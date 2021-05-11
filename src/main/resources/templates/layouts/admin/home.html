@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{layouts/admin/main-layout::main-fragment(  
+                ~{::title},
+                ~{:: #products-static-resources},
+                ~{:: #home-nav},
+                ~{:: #products-main-content},  
+                ~{:: #resources-footer},
+               )}">
+<head>
+<title>Dashboard</title>
+<th:block id="products-static-resources"></th:block>
+</head>
+<body>
+  <nav id="home-nav"></nav>
+  <th:block id="products-main-content">
+    <!-- Content Row -->
+    <div class="row">
+      <!-- Earnings (Monthly) Card Example -->
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Doanh thu (Tháng này)</div>
+                <div th:text="${priceByMonth}" class="h5 mb-0 font-weight-bold text-gray-800"></div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Earnings (Monthly) Card Example -->
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Tổng doanh thu</div>
+                <div th:text="${allPrice}" class="h5 mb-0 font-weight-bold text-gray-800"></div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Earnings (Monthly) Card Example -->
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Thành viên mới đăng kí</div>
+                <div class="row no-gutters align-items-center">
+                  <div class="col-auto">
+                    <div th:text="${userByMonth}" class="h5 mb-0 mr-3 font-weight-bold text-gray-800"></div>
+                  </div>
+                  <div class="col">
+                    <div class="progress progress-sm mr-2">
+                      <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Pending Requests Card Example -->
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Tổng thành viên</div>
+                <div th:text="${allUser}" class="h5 mb-0 font-weight-bold text-gray-800"></div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-comments fa-2x text-gray-300"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Content Row -->
+    <div class="row">
+      <!-- Area Chart -->
+      <div class="col-xl-8 col-lg-7">
+        <div class="card shadow mb-4">
+          <!-- Card Header - Dropdown -->
+          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Doanh thu 7 ngày gần nhất</h6>
+          </div>
+          <!-- Card Body -->
+          <div class="card-body">
+            <div class="chart-area">
+              <canvas id="myAreaChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Pie Chart -->
+      <div class="col-xl-4 col-lg-5">
+        <div class="card shadow mb-4">
+          <!-- Card Header - Dropdown -->
+          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Tin chưa duyệt</h6>
+          </div>
+          <!-- Card Body -->
+          <div class="card-body" style="padding: 12px; border: none;">
+            <div class="list-group">
+              <div th:each="item: ${new_regist}" class="list-group-item list-group-item-action" style="padding: 5px; border: none;">
+                <h5 style="font-size: 1.1rem; line-height: 25px; color: #4e73df; font-weight: bold;" th:text="${item.getTitle()}"></h5>
+                <p th:text="${item.getCreateBy()}" style="font-size: 1rem;"></p>
+                <hr style="padding: 0; margin: 5px">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </th:block>
+  <th:block id="resources-footer">
+    <!-- Page level custom scripts -->
+    <script src="/admin/js/demo/chart-area-demo.js"></script>
+  </th:block>
+</body>
+</html>
