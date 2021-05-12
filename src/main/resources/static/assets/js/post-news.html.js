@@ -34,7 +34,7 @@ function dateTargetChange() {
 						currency: 'VND'
 					});
 				$("#thue_result").html(thue);
-				$("#checkout_tax_fee").html(thue);	
+				$("#checkout_tax_fee").html(thue);
 
 				var tong = tongTien.toLocaleString('en-US', {
 					style: 'currency',
@@ -118,12 +118,12 @@ function napThemOnClick() {
 	if (obj) {
 		price = parseInt(obj.text().replaceAll("₫", "").replaceAll(",", ""));
 	}
-	
+
 	if (price < 10000) {
 		alert("Số tiền không hợp lệ.")
 		return;
 	}
-	
+
 	validateServer(function() {
 		$("#modal").modal("show");
 	})

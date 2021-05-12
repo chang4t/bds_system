@@ -1,6 +1,6 @@
 const MONTH_NAMES = [
-  'Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
-  'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'
+  'tháng 1', 'tháng 2', 'tháng 3', 'tháng 4', 'tháng 5', 'tháng 6',
+  'tháng 7', 'tháng 8', 'tháng 9', 'tháng 10', 'tháng 11', 'tháng 12'
 ];
 
 
@@ -19,16 +19,16 @@ function getFormattedDate(date, prefomattedDate = false, hideYear = false) {
   if (prefomattedDate) {
     // Today at 10:20
     // Yesterday at 10:20
-    return `${ prefomattedDate } at ${ hours }:${ minutes }`;
+    return `${ prefomattedDate }`; // lúc ${ hours }:${ minutes }
   }
 
   if (hideYear) {
     // 10. January at 10:20
-    return `${day}.${month} at ${hours}:${ minutes }`;
+    return `${day} ${month}` // lúc ${hours}:${ minutes };
   }
 
   // 10. January 2017. at 10:20
-  return `${ day }. ${ month } ${ year }. at ${ hours }:${ minutes }`;
+  return `${ day } ${ month } ${ year }`; //. lúc ${ hours }:${ minutes }
 }
 
 
@@ -58,9 +58,9 @@ function timeAgo(dateParam) {
   } else if (minutes < 60) {
     return `${ minutes } phút`;
   } else if (isToday) {
-    return getFormattedDate(date, 'Today'); // Today at 10:20
+    return getFormattedDate(date, 'Hôm nay'); // Today at 10:20
   } else if (isYesterday) {
-    return getFormattedDate(date, 'Yesterday'); // Yesterday at 10:20
+    return getFormattedDate(date, 'Hôm qua'); // Yesterday at 10:20
   } else if (isThisYear) {
     return getFormattedDate(date, false, true); // 10. January at 10:20
   }

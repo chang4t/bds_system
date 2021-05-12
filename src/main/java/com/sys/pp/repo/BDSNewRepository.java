@@ -31,6 +31,9 @@ public interface BDSNewRepository extends JpaRepository<BdsNew, Integer> {
 	@Query(value = "select * from `bds_ news` where delete_flg = 0 and status_flg = 1 and SYSDATE() <= end_date and  SYSDATE() >= start_date order by level desc", nativeQuery = true)
 	Page<BdsNew> findAllAndCheckSysdate(Pageable pageable);
 	
+	@Query(value = "select * from `bds_ news` order by news_id desc", nativeQuery = true)
+	Page<BdsNew> finAllByPage(Pageable pageable);
+	
 	@Query(value = "select b.* from `favourite` f inner join `bds_ news` b on f.news_id = b.news_id where user_id = :userId order by b.create_at desc", nativeQuery = true)
 	List<BdsNew> findFarivoteByUserId(String userId);
 }

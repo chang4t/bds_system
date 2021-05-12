@@ -3,4 +3,9 @@ Vui lòng chờ chúng tôi xử lý dữ liệu...
 <script src="/assets/js/like.js" type="text/javascript"></script>
 <script>
   prepareFarivotesAfterLogin(); //like.js
+  
+  ajaxRequest("/util/user-infomation", "GET", null, function(res) {
+    localStorage.setItem('users', JSON.stringify(res));
+  });
+  
 </script>

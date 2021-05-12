@@ -1,9 +1,16 @@
 function initSelectBox() {
 	init();
+}
 
-	//init pickup list
-	pickUpFormality(function() { });
-	loadCategoryList(function() { });
+function init() {
+	var formalityList = "SELL_BUY_LEASE_RENT".split("_");
+	pickUpFormality(function() {
+		document.querySelector('#selectbox_hinhthuc_id').setValue(formalityList);
+		loadCategoryList(function() {
+			document.querySelector('#selectbox_category_id').setValue(1);
+			getData();
+		});
+	});
 }
 
 function pickUpFormality(doneAction) {
@@ -28,9 +35,6 @@ function loadCategoryList(doneAction) {
 		]
 	});
 	doneAction();
-}
-
-function init() {
 }
 
 function getData() {

@@ -24,6 +24,11 @@
             <div class="recent-work-header row pb-5" style="margin-bottom: 5px; text-align: left;">
               <h2 class="worksingle-heading h3 pb-3 light-300 typo-space-line">Lịch sử đăng bài</h2>
             </div>
+            
+            <div th:if="${posts.size() == 0}">
+                <h3 style="text-align: left; padding-top:20px;" class="h3 light-300">Bạn chưa có bài viết nào</h3>
+            </div>
+            
             <div class="row">
               <div th:each="item: ${posts}" class="col-xs-12 col-sm-3">
                 <div style="height: 350px; border-radius: 15px;" class="card">
@@ -49,13 +54,7 @@
                   <div class="category_card_show2">
                     <label th:text="${item.getFormality()}"></label>
                   </div>
-                  <!-- div style="position: absolute; top: 7px; right: 10px; cursor: pointer;">
-                    <i th:if="${item.isLiked()}"
-                      th:attr="onclick=|onSavePost($(this), '${item.getTitle()}', '${item.getUrlPost()}', '${item.getThumnail()}', '${item.getDescription()}', '${item.getAddress()}', '${item.getFormality()}', '${item.getCategoryId()}', '${item.getNewsId()}')|"
-                      th:class="'checked_like bx bx-bell bx-sm text-danger bxs-heart liked_' + ${item.getNewsId()}"></i> <i th:if="${!item.isLiked()}" th:th-data="${item.getUrlPost()}"
-                      th:attr="onclick=|onSavePost($(this), '${item.getTitle()}', '${item.getUrlPost()}', '${item.getThumnail()}', '${item.getDescription()}', '${item.getAddress()}', '${item.getFormality()}', '${item.getCategoryId()}', '${item.getNewsId()}')|"
-                      th:class="'checked_like bx bx-bell bx-sm bx-heart text-danger liked_' + ${item.getNewsId()}"></i> -->
-                </div>
+                  <div class="category-info-location time_ago_post_card" style="position: absolute; right: 10px; bottom: 9px;" th:text="${item.getCreateAt()}"></div>                </div>
               </div>
             </div>
             <div>
@@ -69,36 +68,15 @@
   <th:block id="resources-footer">
     <script>
           $(document).ready(function() {
-            $("#ser-input").focus(function() {
-              $('.search-full-view').addClass("search-normal-screen");
-              $("#ser-input").hide(200);
-              $("#search-input").focus();
-              $("#xemtin_id").hide();
-            });
-
-            $("#search-close").click(function() {
-              $('.search-full-view').removeClass("search-normal-screen");
-              $("#ser-input").show(200);
-              $("#xemtin_id").show(200);
-            });
-
-            $('#tin_noi_bat_id').carousel({
-              interval : 10000
-            });
-
-            // Init
-            $('[data-bs-toggle="tooltip"]').tooltip()
-            //trucTitle();
-
-            // End Slide
-            var x = $('#tin_noi_bat_id > .carousel-inner > .carousel-item')[0];
-            x.classList.add("active");
-            setLike();
+            loadTimeAgo();
           });
 
-          function scrollToContent() {
-            var elmnt = document.getElementById("content");
-            elmnt.scrollIntoView();
+          function loadTimeAgo() {
+            // change time a go post card
+            $(".time_ago_post_card").each(function() {
+              var dateStr = $(this).text();
+              $(this).text(timeAgo(dateStr));
+            });
           }
         </script>
   </th:block>

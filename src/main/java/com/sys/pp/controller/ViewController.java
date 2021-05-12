@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.security.Principal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -47,8 +48,8 @@ import com.sys.pp.util.StringUtils;
 
 @Controller
 @RequestMapping("view")
-public class ViewPostController {
-	private static final Logger LOGGER = LoggerFactory.getLogger(ViewPostController.class);
+public class ViewController {
+	private static final Logger LOGGER = LoggerFactory.getLogger(ViewController.class);
 
 	@Autowired
 	UserRepository userRepository;
@@ -174,6 +175,10 @@ public class ViewPostController {
 
 			if (news.getDeleteFlg() == 1) {
 				info.setCanceled(true);
+			}
+
+			if (news.getEndDate().before(new Date()) || news.getStartDate().after(new Date())) {
+				info.setExpires(true);
 			}
 
 			if (owner != null && owner.getUserId().equals(news.getCreateBy())) {

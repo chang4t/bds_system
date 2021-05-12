@@ -31,6 +31,7 @@ import com.sys.pp.repo.DistrictRepository;
 import com.sys.pp.repo.FavouriteRepository;
 import com.sys.pp.repo.NewsTypeRepository;
 import com.sys.pp.repo.ProvinceRepository;
+import com.sys.pp.util.DateUtil;
 import com.sys.pp.util.FileUtil;
 import com.sys.pp.util.StringUtils;
 
@@ -180,6 +181,7 @@ public class GemRealtyService {
 		post.setNewsId(String.valueOf(item.getNewsId()));
 		post.setFormality(GemRealtyConst.getFormalityFromId(item.getDetailNew().getFormality()));
 		post.setCategoryId(categoryRepository.findById(item.getCategoryId()).get().getCategoryName());
+		post.setCreateAt(DateUtil.convertToString(item.getCreateAt()));
 
 		if (userId != null && favouriteRepository != null) {
 			Optional<Favourite> liked = favouriteRepository.findById(new FavouritePK(userId, item.getNewsId()));

@@ -23,6 +23,13 @@ public class BDSNewService {
 		Page<BdsNew> page = bDSNewRepository.findAllAndCheckSysdate(pageable);
 		return page.toList();
 	}
+	
+	public List<BdsNew> findAllByPageNumber(int pageNumber) {
+		Sort sortable = Sort.by("category_id").descending();
+		PageRequest pageable = PageRequest.of(pageNumber, Names.DEFAULT_PAGE_NUMBER_OF_HOME_NEWS, sortable);
+		Page<BdsNew> page = bDSNewRepository.finAllByPage(pageable);
+		return page.toList();
+	}
 
 	public List<BdsNew> findNotApprovedByPageNumber(int pageNumber) {
 		Sort sortable = Sort.by("category_id").descending();

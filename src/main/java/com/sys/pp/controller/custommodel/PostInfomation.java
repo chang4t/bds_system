@@ -1,6 +1,5 @@
 package com.sys.pp.controller.custommodel;
 
-import java.util.Date;
 import java.util.List;
 
 import com.sys.pp.util.StringUtils;
@@ -9,7 +8,7 @@ public class PostInfomation {
 	// basic infomation
 	private String newsId;
 	private String categoryId;
-	private Date createAt;
+	private String createAt;
 	private String createBy;
 	private String endDate;
 	private String pricePost;
@@ -60,10 +59,19 @@ public class PostInfomation {
 	private boolean isLiked;
 	private boolean isApproved;
 	private boolean isCanceled;
+	private boolean isExpires;
 	private boolean isAccessByOwner;
 
 	public String getAcreage() {
 		return this.acreage;
+	}
+
+	public boolean isExpires() {
+		return isExpires;
+	}
+
+	public void setExpires(boolean isExpires) {
+		this.isExpires = isExpires;
 	}
 
 	public boolean isCanceled() {
@@ -358,11 +366,11 @@ public class PostInfomation {
 		this.categoryId = categoryId;
 	}
 
-	public Date getCreateAt() {
+	public String getCreateAt() {
 		return this.createAt;
 	}
 
-	public void setCreateAt(Date createAt) {
+	public void setCreateAt(String createAt) {
 		this.createAt = createAt;
 	}
 

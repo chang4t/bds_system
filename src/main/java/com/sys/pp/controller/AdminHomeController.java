@@ -66,7 +66,7 @@ public class AdminHomeController {
 
 		PostInfomation post = new PostInfomation();
 		post.setTitle(item.getTitle());
-		post.setCreateAt(item.getCreateAt());
+		post.setCreateAt(DateUtil.convertToString(item.getCreateAt()));
 		post.setAcreage(detail.getAcreage() != 0 ? formatter.format(detail.getAcreage()) + "m²" : "--");
 		post.setCreateBy(userRepository.findById(item.getCreateBy()).get().getUserName());
 		return post;

@@ -372,4 +372,27 @@ public class UtilController {
 			return new ArrayList<PostInfomation>();
 		}
 	}
+
+	/**
+	 * Load thông tin user đăng nhập
+	 * 
+	 * @return String message if false;
+	 */
+	@ResponseBody
+	@GetMapping(path = "/user-infomation")
+	public Users getUserLogin(Principal principal) {
+		Users user = null;
+		try {
+			String email = principal.getName();
+			user = userRepository.findByEmailAddress(email);
+
+			if (StringUtils.isNullOrEmpty(email) || user == null)
+				throw new Exception();
+		} catch (Exception e) {
+			LOGGER.warn("Chưa đăng nhập");
+			return null;
+		}
+		
+		return user;
+	}
 }

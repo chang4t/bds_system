@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -47,48 +49,36 @@ public class CategoryController {
 		}
 		return categoryService.findByPageNumber(page);
 	}
-	
+
 	/**
 	 * Read one
 	 * 
 	 * @return JSON Category
 	 */
 	@ResponseBody
-	@RequestMapping(path = "/get/one/{id}", produces = "application/json; charset=UTF-8", method = RequestMethod.GET)
+	@GetMapping(path = "/get/one/{id}", produces = "application/json; charset=UTF-8")
 	public Optional<Category> getById(@PathVariable Integer id) {
 		return categoryService.findById(id);
 	}
 
 	/**
 	 * Delete by key
+	 * 
 	 * @param Integer id
 	 * 
 	 * @return none
 	 */
 	@ResponseBody
-	@RequestMapping(path = "/delete/{id}", produces = "application/json; charset=UTF-8", method = RequestMethod.POST)
+	@DeleteMapping(path = "/delete/{id}", produces = "application/json; charset=UTF-8")
 	public void deleteById(@PathVariable Integer id) {
 		categoryService.removeById(id);
 	}
 
 	/**
-	 * Find parent category
-	 * 
-	 * @return JSON List<Category>
-	 */
-	@ResponseBody
-	@RequestMapping(path = "/parent", produces = "application/json; charset=UTF-8", method = RequestMethod.GET)
-	public List<Category> findByParentCategory() {
-		return categoryService.findByParentCategory();
-	}
-
-	
-	/**
 	 * Post a category
-	 * @param Map<String, String> paramater
-	 * Key map:
-	 * * categoryName
-	 * * categoryIdParent
+	 * 
+	 * @param Map<String, String> paramater Key map: * categoryName *
+	 *                    categoryIdParent
 	 * 
 	 * @return status, obj added
 	 */
@@ -119,15 +109,14 @@ public class CategoryController {
 
 	/**
 	 * Update a category
-	 * @param Map<String, String> paramater
-	 * Key map:
-	 * * categoryName
-	 * * categoryIdParent
+	 * 
+	 * @param Map<String, String> paramater Key map: * categoryName *
+	 *                    categoryIdParent
 	 * 
 	 * @return status, obj added
 	 */
 	@ResponseBody
-	@PostMapping(value = "/update/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json; charset=UTF-8")
+	@PutMapping(value = "/update/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json; charset=UTF-8")
 	public Object updateCategory(@RequestBody Map<String, String> paramater, @PathVariable Integer id) {
 		// validate data
 		Map<String, String> errors = this.validate(paramater);

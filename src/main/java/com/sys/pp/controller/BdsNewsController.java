@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -67,7 +67,35 @@ public class BdsNewsController {
 
 	@GetMapping("")
 	public String viewAll() {
-		return "layouts/admin/news-list";
+		return "layouts/admin/bdsnews-list";
+	}
+
+	/**
+	 * Read by page
+	 * 
+	 * @return JSON List<Category>
+	 */
+	@ResponseBody
+	@RequestMapping(path = "/get/{page}", produces = "application/json; charset=UTF-8", method = RequestMethod.GET)
+	public List<PostInfomation> loadData(@PathVariable Integer page,
+			@RequestParam(required = false, name = "filter") String filter) {
+		if (null == page) {
+			return new ArrayList<>();
+		}
+
+		List<BdsNew> bdsNewList;
+		if (!StringUtils.isNullOrEmpty(filter) && "notapproved".equals(filter)) {
+			bdsNewList = bdsNewService.findNotApprovedByPageNumber(page);
+		} else {
+			bdsNewList = bdsNewService.findAllByPageNumber(page);
+		}
+
+		List<PostInfomation> result = this.makeAPostInfomation(bdsNewList);
+
+		result = result.stream().sorted((x1, x2) -> x2.getNewsId().compareTo(x1.getNewsId()))
+				.collect(Collectors.toList());
+
+		return result;
 	}
 
 	/**
@@ -75,7 +103,7 @@ public class BdsNewsController {
 	 * 
 	 * @return JSON List<Category>
 	 */
-	@PostMapping("approved/{ids}")
+	@PutMapping("approved/{ids}")
 	@ResponseBody
 	public String approved(@PathVariable String ids) {
 		String[] idArr = ids.split("t");
@@ -106,7 +134,7 @@ public class BdsNewsController {
 	 * 
 	 * @return JSON List<Category>
 	 */
-	@PostMapping("cancel/{ids}")
+	@PutMapping("cancel/{ids}")
 	@ResponseBody
 	public String cancel(@PathVariable String ids) {
 		String[] idArr = ids.split("t");
@@ -133,42 +161,6 @@ public class BdsNewsController {
 	}
 
 	/**
-	 * Read by page
-	 * 
-	 * @return JSON List<Category>
-	 */
-	@ResponseBody
-	@RequestMapping(path = "/get/{page}", produces = "application/json; charset=UTF-8", method = RequestMethod.GET)
-	public List<PostInfomation> loadData(@PathVariable Integer page,
-			@RequestParam(required = false, name = "filter") String filter) {
-		if (null == page) {
-			return new ArrayList<>();
-		}
-
-		List<BdsNew> bdsNewList;
-		if (!StringUtils.isNullOrEmpty(filter) && "notapproved".equals(filter)) {
-			bdsNewList = bdsNewService.findNotApprovedByPageNumber(page);
-		} else {
-			bdsNewList = bdsNewService.findByPageNumber(page);
-		}
-
-		List<PostInfomation> result = this.makeAPostInfomation(bdsNewList);
-
-		result = result.stream().sorted((x1, x2) -> x2.getNewsId().compareTo(x1.getNewsId()))
-				.collect(Collectors.toList());
-
-		return result;
-	}
-
-	private List<PostInfomation> makeAPostInfomation(List<BdsNew> bdsNewList) {
-		List<PostInfomation> list = new ArrayList<>();
-		for (BdsNew item : bdsNewList) {
-			list.add(this.makeAnItem(item));
-		}
-		return list;
-	}
-
-	/**
 	 * Delete by key
 	 * 
 	 * @param Integer id
@@ -181,13 +173,21 @@ public class BdsNewsController {
 		bDSNewRepository.deleteById(id);
 	}
 
+	private List<PostInfomation> makeAPostInfomation(List<BdsNew> bdsNewList) {
+		List<PostInfomation> list = new ArrayList<>();
+		for (BdsNew item : bdsNewList) {
+			list.add(this.makeAnItem(item));
+		}
+		return list;
+	}
+
 	private PostInfomation makeAnItem(BdsNew item) {
 		DetailNew detail = item.getDetailNew();
 		DecimalFormat formatter = new DecimalFormat("###,###,###");
 
 		PostInfomation post = new PostInfomation();
 		post.setTitle(item.getTitle());
-		post.setCreateAt(item.getCreateAt());
+		post.setCreateAt(DateUtil.convertToString(item.getCreateAt()));
 		post.setAcreage(detail.getAcreage() != 0 ? formatter.format(detail.getAcreage()) + "m²" : "--");
 		BigDecimal price = detail.getPrice();
 		post.setPrice(price != null && price.compareTo(BigDecimal.ZERO) != 0

@@ -58,7 +58,7 @@ import com.sys.pp.util.StringUtils;
 @Controller
 @RequestMapping("post")
 public class PostController {
-	private static final Logger LOGGER = LoggerFactory.getLogger(ViewPostController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ViewController.class);
 
 	@Autowired
 	private ProvinceService provinceService;

@@ -440,6 +440,7 @@ function onSearch(url) {
 			setTimeout(function() {
 				$("#count_result_id").text("Có " + res.data.length + " bất động sản được tìm thấy.");
 				res.data.forEach((item) => {
+					item.createAt = timeAgo(item.createAt);
 					let rendered = Mustache.render(tmplPost, item);
 					$("#content_search_result > .row").append(rendered);
 				});

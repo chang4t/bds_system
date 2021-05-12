@@ -169,7 +169,7 @@ input {
 
 				var urlParams = getUrlParamt();
 				const f = urlParams.get('f');
-				var url = "./news/get/" + page;
+				var url = "/admin/news/get/" + page;
 
 				if (f == "notapproved") {
 				  $("#title_id").text("Tin chưa duyệt");
@@ -196,7 +196,8 @@ input {
 				}
 
 				if (r == true) {
-					ajaxRequest("./news/approved/" + id, "POST", null, function(data) {
+					ajaxRequest("/admin/news/approved/" + id, "PUT", null, function(data) {
+					  alert("Duyệt thành công mục đã chọn.");
 					  location.reload();
 					});
 				}
@@ -223,7 +224,8 @@ input {
 				var r = confirm("Hủy " + allVals.split("t").length + " mục đã chọn");
 
 				if (r == true) {
-					ajaxRequest("./news/cancel/" + allVals, "POST", null, function(data) {
+					ajaxRequest("/admin/news/cancel/" + allVals, "PUT", null, function(data) {
+					  alert("Hủy thành công mục đã chọn.");
 					  location.reload();
 					});
 				}
@@ -233,8 +235,9 @@ input {
 				var r = confirm("Xác nhận xóa [" + name + "]");
 
 				if (r == true) {
-					ajaxRequest("./news/delete/" + key, "DELETE", null, function(data) {
+					ajaxRequest("/admin/news/delete/" + key, "DELETE", null, function(data) {
 						obj.parents("tr").remove();
+						alert("Xóa thành công.");
 					});
 				}
 			}

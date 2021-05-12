@@ -44,7 +44,7 @@
 <body>
   <th:block id="products-main-content">
     <div th:if="${!infomation.isCanceled()}">
-      <div th:if="${!infomation.isApproved()}">
+      <div th:if="${!infomation.isApproved() OR (infomation.isExpires() AND infomation.isAccessByOwner())}">
         <div sec:authorize="isFullyAuthenticated()">
           <div th:if="${infomation.isAccessByOwner() OR #strings.contains(#authentication.principal.authorities,'ROLE_ADMIN')}">
             <div class="container" style="padding: 10px;">
@@ -58,7 +58,15 @@
                       <li th:text="${infomation.getBreadcrumbItems().get(3)}" class="breadcrumb-item active" aria-current="page"></li>
                     </ol>
                   </nav>
-                  <div class="alert alert-warning" role="alert">Bài viết đang chờ phê duyệt</div>
+                  
+                  <div th:if="${infomation.isExpires()}">
+                    <div class="alert alert-warning" role="alert">Bài viết đã hết hạn hiển thị.</div>
+                  </div>
+                  
+                  <div th:if="${!infomation.isApproved()}">
+                    <div class="alert alert-warning" role="alert">Bài viết đang chờ phê duyệt.</div>
+                  </div>
+                  
                   <div th:if="${infomation.isHasImage()}" class="full-screen-show">
                     <div id="templatemo-slide-link-target" class="mb-3">
                       <img class="img-fluid border rounded" th:src="${infomation.getImages().get(0).get(0)}" alt="Card image cap">
@@ -247,7 +255,7 @@
           </div>
         </div>
       </div>
-      <div th:if="${infomation.isApproved()}">
+      <div th:if="${infomation.isApproved() AND !infomation.isExpires()}">
         <div class="container" style="padding: 10px;">
           <div class="row">
             <div class="col-md-8">
@@ -447,9 +455,9 @@
       </div>
     </div>
     <!-- Xóa bài viết -->
-    <div th:if="${infomation.isCanceled()}">
+    <div th:if="${infomation.isCanceled() OR infomation.isExpires() OR !infomation.isApproved()}">
       <div class="container" style="padding: 50px;">
-        <h3>Bài viết đã bị xóa</h3>
+        <h3>Bạn không thể xem bài viết này.</h3>
         <a href="/">Quay lại trang chủ</a>
       </div>
     </div>

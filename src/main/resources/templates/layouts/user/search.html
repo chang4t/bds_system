@@ -260,6 +260,7 @@
 				<div style="position: absolute; top: 7px; right: 10px; cursor: pointer;">
 				  <i th-data="{{urlPost}}" onclick="onSavePost($(this), '{{title}}', '{{urlPost}}', '{{thumnail}}', '{{description}}', '{{address}}', '{{formality}}', '{{categoryId}}', {{newsId}});" class="checked_like liked_{{newsId}} bx bx-bell bx-sm bx-heart text-danger"></i>
 				</div>
+				<div class="category-info-location time_ago_post_card" style="position: absolute; right: 10px; bottom: 9px;">{{createAt}}</div>
 			  </div>
 			</div>
 		</div>

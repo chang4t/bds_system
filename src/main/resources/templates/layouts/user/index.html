@@ -162,6 +162,7 @@
                           th:attr="onclick=|onSavePost($(this), '${item.getTitle()}', '${item.getUrlPost()}', '${item.getThumnail()}', '${item.getDescription()}', '${item.getAddress()}', '${item.getFormality()}', '${item.getCategoryId()}', '${item.getNewsId()}')|"
                           th:class="'checked_like bx bx-bell bx-sm bx-heart text-danger liked_' + ${item.getNewsId()}"></i>
                       </div>
+                      <div class="category-info-location time_ago_post_card" style="position: absolute; right: 10px; bottom: 9px;" th:text="${item.getCreateAt()}"></div>
                     </div>
                   </div>
                 </div>
@@ -309,6 +310,7 @@
                       th:attr="onclick=|onSavePost($(this), '${item.getTitle()}', '${item.getUrlPost()}', '${item.getThumnail()}', '${item.getDescription()}', '${item.getAddress()}', '${item.getFormality()}', '${item.getCategoryId()}', '${item.getNewsId()}')|"
                       th:class="'checked_like bx bx-bell bx-sm bx-heart text-danger liked_' + ${item.getNewsId()}"></i>
                   </div>
+                  <div class="category-info-location time_ago_post_card" style="position: absolute; right: 10px; bottom: 9px;" th:text="${item.getCreateAt()}"></div>
                 </div>
               </div>
               <div>
@@ -467,7 +469,16 @@
             x.classList.add("active");
             setLike(); //like.js
             initSelectBox(); //index.html.js
+            loadTimeAgo();
           });
+          
+          function loadTimeAgo() {
+            // change time a go post card
+            $(".time_ago_post_card").each(function() {
+              var dateStr = $(this).text();
+              $(this).text(timeAgo(dateStr));
+            });
+          }
 
           function scrollToContent() {
             var elmnt = document.getElementById("content");

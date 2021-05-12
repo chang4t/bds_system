@@ -14,10 +14,10 @@
 <body>
   <th:block id="products-main-content">
     <!-- Open modal -->
-    <a id="add_new" data-toggle="modal" data-target="#exampleModal" style="margin-bottom: 10px;" href="#" class="btn btn-success btn-icon-split"> <span class="icon text-white-50"> <i
-        class="fas fa-plus"></i>
-    </span> <span class="text">Thêm mới</span>
-    </a>
+    <div onclick="onCloseModal()" id="add_new" data-toggle="modal" data-target="#exampleModal" style="margin-bottom: 10px;" class="btn btn-success btn-icon-split">
+      <span class="icon text-white-50"> <i class="fas fa-plus"></i>
+      </span> <span class="text">Thêm mới</span>
+    </div>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
       <div class="card-header py-3">
@@ -30,6 +30,7 @@
               <tr>
                 <th>ID</th>
                 <th>Tên loại tin</th>
+                <th>Mô tả</th>
                 <th>Giá tiền</th>
                 <th>Độ ưu tiên</th>
                 <th>Action</th>
@@ -52,7 +53,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="title_modal">Thêm mới</h5>
+            <h5 class="modal-title" onclick="onCloseModal();" id="title_modal">Thêm mới</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -63,6 +64,10 @@
               <div class="form-group">
                 <label for="exampleInputEmail1">Tên loại tin</label> <input type="text" class="form-control" id="name" placeholder="Nhập loại tin"> <small style="color: red;"
                   id="validate_name" class="form-text text-muted validate"></small>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Mô tả</label> <input type="text" class="form-control" id="description" placeholder="Nhập mô tả cho loại tin"> <small style="color: red;"
+                  id="validate_description" class="form-text text-muted validate"></small>
               </div>
               <div class="form-group">
                 <label for="price">Giá tiền</label> <input type="number" class="form-control" id="price" placeholder="Nhập giá tiền"> <small style="color: red;" id="validate_price"
@@ -91,6 +96,7 @@
       <tr id="content_id_{{id}}">
         <td>{{id}}</td>
         <td>{{name}}</td>
+        <td>{{description}}</td>
         <td>{{price}}</td>
         <td>{{level}}</td>
         <td>
@@ -120,6 +126,7 @@
         $("#confirm_save").click(function(){
           var data = {
             name: $("#name").val(),
+            description: $("#description").val(),
             price: $("#price").val(),
             level: $("#level").val(),
           }
@@ -152,30 +159,6 @@
         }); 
       }
 
-      function onDelete(obj, key, name) {
-        var r = confirm("Xác nhận xóa [" + name + "]");
-
-        if (r == true) {
-          ajaxRequest("./newstype/delete/" + key, "POST", null, function(data) {
-            obj.parents("tr").remove();
-          });
-        }
-      }
-      
-      function onUpdate(obj){
-        var id = obj.parents("tr").find("td")[0].textContent;
-        $("#title_modal").html("Cập nhật");
-        
-        ajaxRequest("./newstype/get/one/" + id, "GET", null, function(data) {
-          // set value into form
-          $("#indexUpdate").val(id);
-          $("#name").val(data.name);
-          $("#price").val(data.price);
-          $("#level").val(data.level);
-          $('#exampleModal').modal('show');
-        });
-      }
-      
       function save(data) {
         ajaxRequest("./newstype/save", "POST", JSON.stringify(data), function(response) {
           if (response.status == true) {
@@ -199,17 +182,18 @@
       }
 
       function update(data, id) {
-        ajaxRequest("./newstype/update/" + id, "POST", JSON.stringify(data), function(response) {
+        ajaxRequest("./newstype/update/" + id, "PUT", JSON.stringify(data), function(response) {
           if (response.status == true) {
             var item = response.data;
               item.price = Number((parseFloat(item.price)).toFixed(1)).toLocaleString() + " VND";
               var row = $("#content_id_" + item.id);
               row.find("td").eq(1).html(item.name);
-              row.find("td").eq(2).html(item.price);
-              row.find("td").eq(3).html(item.level);
+              row.find("td").eq(2).html(item.description);
+              row.find("td").eq(3).html(item.price);
+              row.find("td").eq(4).html(item.level);
 
-              alert("Cập nhật thành công.")
-              $('#exampleModal').modal('hide')
+              alert("Cập nhật thành công.");
+              $('#exampleModal').modal('hide');
             return;
           }
 
@@ -220,6 +204,32 @@
         });
       }
 
+      function onDelete(obj, key, name) {
+        var r = confirm("Xác nhận xóa [" + name + "]");
+
+        if (r == true) {
+          ajaxRequest("./newstype/delete/" + key, "DELETE", null, function(data) {
+            obj.parents("tr").remove();
+            alert("Xóa thành công.")
+          });
+        }
+      }
+      
+      function onUpdate(obj){
+        var id = obj.parents("tr").find("td")[0].textContent;
+        $("#title_modal").html("Cập nhật");
+        
+        ajaxRequest("./newstype/get/one/" + id, "GET", null, function(data) {
+          // set value into form
+          $("#indexUpdate").val(id);
+          $("#name").val(data.name);
+          $("#description").val(data.description);
+          $("#price").val(data.price);
+          $("#level").val(data.level);
+          $('#exampleModal').modal('show');
+        });
+      }
+      
       function ajaxRequest(url, method, data, calBackFuntion) {
         var config = {
           method : method,
