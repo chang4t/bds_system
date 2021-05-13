@@ -104,7 +104,7 @@ public class PostController {
 		model.addAttribute("actionUpload", this.makeUploadAction());
 		return "layouts/user/post-news";
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(path = "/preview", method = RequestMethod.POST)
 	public Map<String, Object> preview(Principal principal, @RequestBody Map<String, String> paramater) {
@@ -164,13 +164,7 @@ public class PostController {
 
 			String finishUrl = String.format(GemRealtyConst.BASE_FINISH_URL, bdsNew.getNewsId(),
 					StringUtils.toSlug(bdsNew.getTitle()));
-			
-			
 
-			
-			
-			
-			
 			result.put("data", finishUrl);
 			return result;
 		} catch (Exception ex) {
@@ -178,13 +172,6 @@ public class PostController {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Lưu thông tin lỗi");
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
 
 	@ResponseBody
 	@RequestMapping(path = "/validate", method = RequestMethod.POST)
@@ -321,17 +308,18 @@ public class PostController {
 		// required
 		bdsNew.setCategoryId(Integer.valueOf(paramater.get("category_id")));
 		bdsNew.setTitle(paramater.get("title"));
-		bdsNew.setStartDate(DateUtil.convertFromString(paramater.get("startDate")));
-		bdsNew.setEndDate(DateUtil.convertFromString(paramater.get("endDate")));
+		bdsNew.setStartDate(DateUtil.convertFromString(paramater.get("startDate"), DateUtil.DDMMYYYY_FORMAT));
+		bdsNew.setEndDate(DateUtil.convertFromString(paramater.get("endDate"), DateUtil.DDMMYYYY_FORMAT));
 		bdsNew.setCreateAt(new Date());
 		bdsNew.setCreateBy(userId);
 		bdsNew.setStatusFlg(Names.FLAG_OFF);
 		bdsNew.setDeleteFlg(Names.FLAG_OFF);
 		bdsNew.setLevel(Integer.valueOf(paramater.get("newsType")));
 
-		bdsNew.setPrice(GemRealtyService.getPriceByNewsType(newsTypeRepository,
-				Integer.valueOf(paramater.get("newsType")), DateUtil.convertFromString(paramater.get("startDate")),
-				DateUtil.convertFromString(paramater.get("endDate"))));
+		bdsNew.setPrice(
+				GemRealtyService.getPriceByNewsType(newsTypeRepository, Integer.valueOf(paramater.get("newsType")),
+						DateUtil.convertFromString(paramater.get("startDate"), DateUtil.DDMMYYYY_FORMAT),
+						DateUtil.convertFromString(paramater.get("endDate"), DateUtil.DDMMYYYY_FORMAT)));
 		return bdsNew;
 	}
 
@@ -431,8 +419,8 @@ public class PostController {
 		cal.set(Calendar.SECOND, 0);
 		cal.set(Calendar.MILLISECOND, 0);
 
-		Date startDate = DateUtil.convertFromString(paramater.get("startDate"));
-		Date endDate = DateUtil.convertFromString(paramater.get("endDate"));
+		Date startDate = DateUtil.convertFromString(paramater.get("startDate"), DateUtil.DDMMYYYY_FORMAT);
+		Date endDate = DateUtil.convertFromString(paramater.get("endDate"), DateUtil.DDMMYYYY_FORMAT);
 
 		if (newsType == null || startDate == null || endDate == null || startDate.before(cal.getTime())
 				|| endDate.before(cal.getTime()) || (endDate.getTime() - startDate.getTime()) == 0) {
@@ -639,7 +627,8 @@ public class PostController {
 			errors.put("validate_toilet_num", "Kiểm tra lại số phòng ngủ.");
 		}
 		// schedule
-		if (!DateUtil.validateDate(paramater.get("startDate")) || !DateUtil.validateDate(paramater.get("endDate"))) {
+		if (!DateUtil.validateDateDDMMYYYY(paramater.get("startDate"))
+				|| !DateUtil.validateDateDDMMYYYY(paramater.get("endDate"))) {
 			errors.put("validate_date", "Kiểm tra lịch trình bài đăng.");
 		}
 

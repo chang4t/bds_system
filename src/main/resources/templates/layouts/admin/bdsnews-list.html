@@ -136,9 +136,12 @@ input {
 
 				</td>
 				<td>
+					<a href="{{urlPost}}" class="btn btn-success btn-circle btn-sm">
+                        <i class="fas 	fa fa-bars"></i>
+                    </a>
 					{{^canceled}}{{^approved}}
                     	<a href="#" onclick="approvedOne('{{newsId}}', '{{title}}')" class="btn btn-info btn-circle btn-sm">
-                       	 	<i class="	fas fa-check-square"></i>
+                       	 	<i class="fas fa-check-square"></i>
                     	</a>
 					{{/approved}}{{/canceled}}
 					<a href="#" onclick="onDelete($(this), '{{newsId}}', '{{title}}');" class="btn btn-danger btn-circle btn-sm">

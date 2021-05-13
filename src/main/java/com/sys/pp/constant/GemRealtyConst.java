@@ -1,6 +1,5 @@
 package com.sys.pp.constant;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,7 +34,9 @@ public class GemRealtyConst {
 	}
 
 	public enum Unit {
-		MILLION(0, "Triệu"), BILLION(1, "Tỷ");
+		MILLION_MONTH(0, "Triệu/tháng"),
+		MILLION_M2(0, "Triệu/m²"),
+		BILLION(1, "Tỷ");
 
 		String name;
 		int id;

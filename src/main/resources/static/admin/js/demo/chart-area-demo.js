@@ -79,7 +79,7 @@ function makeChart(label, data) {
 						padding: 10,
 						// Include a dollar sign in the ticks
 						callback: function(value, index, values) {
-							return '$' + number_format(value);
+							return number_format(value) + " VND";
 						}
 					},
 					gridLines: {

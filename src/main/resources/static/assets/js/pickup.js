@@ -101,7 +101,7 @@ function changePriceInput(obj) {
 		$("#unit option:selected").text();
 	t = t.trim().toLowerCase();
 	t = t.charAt(0).toUpperCase() + t.slice(1);
-	$("#thanhchu").val(t);
+	$("#thanhchu").val(t.replaceAll("/", " trên "));
 }
 
 function ajaxRequest(url, method, data, calBackFuntion) {

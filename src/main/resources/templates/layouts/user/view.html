@@ -455,7 +455,7 @@
       </div>
     </div>
     <!-- Xóa bài viết -->
-    <div th:if="${infomation.isCanceled() OR infomation.isExpires() OR !infomation.isApproved()}">
+    <div th:if="${infomation.isCanceled() OR infomation.isExpires() OR (!infomation.isApproved() AND !infomation.isAccessByOwner())}">
       <div class="container" style="padding: 50px;">
         <h3>Bạn không thể xem bài viết này.</h3>
         <a href="/">Quay lại trang chủ</a>

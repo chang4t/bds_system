@@ -38,10 +38,24 @@ public class AdminHomeController {
 	public String home(Model model, Principal principal) {
 		DecimalFormat formatter = new DecimalFormat("###,###,###");
 
-		model.addAttribute("priceByMonth", formatter.format(statisticalService.countPrice(true)) + " VND");
-		model.addAttribute("allPrice", formatter.format(statisticalService.countPrice(false)) + " VND");
 		model.addAttribute("userByMonth", formatter.format(statisticalService.countUser(false)));
 		model.addAttribute("allUser", formatter.format(statisticalService.countUser(false)));
+		if (bdsNewService.findAllByPageNumber(0).size() == 0) {
+			model.addAttribute("priceByMonth", "0 VND");
+			model.addAttribute("allPrice", "0 VND");
+			return "layouts/admin/home";
+		}
+
+		BigDecimal countByMonth = statisticalService.countPrice(true);
+		if (null != countByMonth) {
+			model.addAttribute("priceByMonth", formatter.format(countByMonth) + " VND");
+		}
+
+		BigDecimal countAll = statisticalService.countPrice(false);
+		if (null != countAll) {
+			model.addAttribute("allPrice", formatter.format(countAll) + " VND");
+		}
+
 		model.addAttribute("new_regist", loadNewsNewRegist());
 		return "layouts/admin/home";
 	}
@@ -78,7 +92,7 @@ public class AdminHomeController {
 		Map<String, Object> result = new HashMap<String, Object>();
 		List<BigDecimal> list = new ArrayList<BigDecimal>();
 		List<String> labelList = new ArrayList<String>();
-		for (int i = 7; i > 0; i--) {
+		for (int i = 6; i > -1; i--) {
 			Date d = DateUtil.getMoveDay(-i);
 			BigDecimal tmp = statisticalService.getPriceOfDay(d);
 			if (tmp == null) {

@@ -210,6 +210,9 @@ public class BdsNewsController {
 		post.setStatusFlg(String.valueOf(item.getStatusFlg()));
 		post.setStartDate(DateUtil.convertDDMMYYYYString(item.getStartDate()));
 		post.setEndDate(DateUtil.convertDDMMYYYYString(item.getEndDate()));
+		String url = String.format(GemRealtyConst.BASE_FINISH_URL, item.getNewsId(),
+				StringUtils.toSlug(item.getTitle()));
+		post.setUrlPost(url);
 		if (item.getStatusFlg() == 1) {
 			post.setApproved(true);
 		}

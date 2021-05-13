@@ -75,7 +75,7 @@ public class ViewController {
 		try {
 			Optional<BdsNew> newsOpt = bDSNewRepository.findById(id);
 			if (!newsOpt.isPresent()) {
-				return null;
+				return "layouts/error/404";
 			}
 			BdsNew news = newsOpt.get();
 			PostInfomation info = new PostInfomation();
