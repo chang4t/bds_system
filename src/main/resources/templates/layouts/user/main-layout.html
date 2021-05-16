@@ -150,10 +150,12 @@ html, body {
               return false;
             });
             setNoficationNumber();
-            $("#userNameId").text(
-                "Xin chào "
-                    + JSON.parse(localStorage.getItem('users')).userName.split(' ')[JSON
-                        .parse(localStorage.getItem('users')).userName.split(' ').length - 1]);
+			if (localStorage.getItem('users')) {
+                $("#userNameId").text(
+                    "Xin chào "
+                        + JSON.parse(localStorage.getItem('users')).userName.split(' ')[JSON
+                            .parse(localStorage.getItem('users')).userName.split(' ').length - 1]);			  
+			}
           });
     </script>
   <script src="/assets/js/templatemo.js"></script>

@@ -187,6 +187,20 @@ public class ViewController {
 				info.setAccessByOwner(false);
 			}
 
+			// Url
+			String url = String.format(GemRealtyConst.BASE_FINISH_URL, news.getNewsId(),
+					StringUtils.toSlug(news.getTitle()));
+			info.setUrlPost(url);
+
+			// Diện tích && Giá tiền
+			String x1 = news.getDetailNew().getAcreage() != 0 ? formatter.format(news.getDetailNew().getAcreage()) + "m²"
+					: "--";
+			String x2 = price != null && price.compareTo(BigDecimal.ZERO) != 0
+					? formatter.format(news.getDetailNew().getPrice()) + " "
+							+ GemRealtyConst.getUnitFromId(news.getDetailNew().getUnit())
+					: "Thỏa thuận";
+			info.setDesscriptCard(String.format("%s · %s", x2, x1));
+			
 			Users user = userRepository.findById(news.getCreateBy()).get();
 			model.addAttribute("user", user);
 			model.addAttribute("infomation", info);

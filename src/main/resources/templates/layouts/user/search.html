@@ -64,6 +64,7 @@
                       aria-controls="street" aria-selected="false">Đường/Phố</span></li>
                   </ul>
                   <div class="tab-content" id="tab_content" style="padding: 0; margin: 0; margin-left: 10px;">
+
                     <div id="province" class="tab-pane fade show active" role="tabpanel" aria-labelledby="province-tab" style="padding-top: 10px;">
                       <div class="vscomp-search-wrapper">
                         <div class="vscomp-search-container">
@@ -72,6 +73,7 @@
                       </div>
                       <div class="tab_id" style="margin-top: 10px;" id="province_tab_id"></div>
                     </div>
+
                     <div class="tab-pane fade" id=district role="tabpanel" aria-labelledby="district-tab">
                       <div class="vscomp-search-wrapper">
                         <div class="vscomp-search-container">
@@ -80,6 +82,7 @@
                       </div>
                       <div class="tab_id" style="margin-top: 10px;" id="district_tab_id"></div>
                     </div>
+
                     <div class="tab-pane fade" id="ward" role="tabpanel" aria-labelledby="ward-tab">
                       <div class="vscomp-search-wrapper">
                         <div class="vscomp-search-container">
@@ -88,6 +91,7 @@
                       </div>
                       <div class="tab_id" style="margin-top: 10px;" id="ward_tab_id"></div>
                     </div>
+
                     <div class="tab-pane fade" id="street" role="tabpanel" aria-labelledby="street-tab">
                       <div class="vscomp-search-wrapper">
                         <div class="vscomp-search-container">
@@ -96,6 +100,7 @@
                       </div>
                       <div class="tab_id" style="margin-top: 10px;" id="street_tab_id"></div>
                     </div>
+
                   </div>
                 </div>
               </div>
@@ -210,6 +215,7 @@
           </label>
         </div>
     </script>
+
     <script id="district-template" type="x-tmpl-mustache">
         <div class="form-check district_fillter">
           <input class="form-check-input" type="checkbox" name="district_checkbox" value="{{value}}" id="district_checkbox_{{value}}" onchange="onChangeDistrict()">
@@ -218,6 +224,7 @@
           </label>
         </div>
     </script>
+    
     <script id="ward-template" type="x-tmpl-mustache">
         <div class="form-check ward_fillter">
           <input class="form-check-input" type="checkbox" name="ward_checkbox" value="{{value}}" id="ward_checkbox_{{value}}">
@@ -226,6 +233,7 @@
           </label>
         </div>
     </script>
+
     <script id="street-template" type="x-tmpl-mustache">
         <div class="form-check street_fillter">
           <input class="form-check-input" type="checkbox" name="street_checkbox" value="{{value}}" id="street_checkbox_{{value}}">
@@ -234,6 +242,7 @@
           </label>
         </div>
     </script>
+
     <script id="post-result-template" type="x-tmpl-mustache">
 		<div class="col-xs-12 col-sm-4">
 			<div style="height: 350px; border-radius: 15px;" class="card">
@@ -265,6 +274,7 @@
 			</div>
 		</div>
     </script>
+
     <script>
           $(document).ready(function() {
             init();

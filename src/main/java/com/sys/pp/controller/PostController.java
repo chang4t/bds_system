@@ -88,11 +88,10 @@ public class PostController {
 	 * 
 	 * @return view
 	 */
-	@RequestMapping(path = "")
+	@RequestMapping(path = "") // method GET
 	public String view(Model model, Principal principal) {
 		String email = principal.getName();
 
-		model.addAttribute("user_credit", userRepository.findByEmailAddress(email).getCredit());
 		model.addAttribute("contact_list", contactRepository.findContactListByEmail(email));
 		model.addAttribute("formalitys", GemRealtyConst.createFormalityList());
 		model.addAttribute("province_id_list", provinceService.findAll());
@@ -100,7 +99,6 @@ public class PostController {
 		model.addAttribute("unit_listxx", GemRealtyConst.getUnitList());
 		model.addAttribute("direction_list", GemRealtyConst.getDirectionList());
 		model.addAttribute("news_type", newsTypeRepository.findAll());
-
 		model.addAttribute("actionUpload", this.makeUploadAction());
 		return "layouts/user/post-news";
 	}
@@ -316,10 +314,11 @@ public class PostController {
 		bdsNew.setDeleteFlg(Names.FLAG_OFF);
 		bdsNew.setLevel(Integer.valueOf(paramater.get("newsType")));
 
-		bdsNew.setPrice(
-				GemRealtyService.getPriceByNewsType(newsTypeRepository, Integer.valueOf(paramater.get("newsType")),
-						DateUtil.convertFromString(paramater.get("startDate"), DateUtil.DDMMYYYY_FORMAT),
-						DateUtil.convertFromString(paramater.get("endDate"), DateUtil.DDMMYYYY_FORMAT)));
+		BigDecimal price = GemRealtyService.getPriceByNewsType(newsTypeRepository, Integer.valueOf(paramater.get("newsType")),
+				DateUtil.convertFromString(paramater.get("startDate"), DateUtil.DDMMYYYY_FORMAT),
+				DateUtil.convertFromString(paramater.get("endDate"), DateUtil.DDMMYYYY_FORMAT));
+		
+		bdsNew.setPrice(price.add(price.multiply(new BigDecimal(0.01))));
 		return bdsNew;
 	}
 

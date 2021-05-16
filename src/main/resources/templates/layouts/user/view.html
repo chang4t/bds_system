@@ -39,6 +39,26 @@
       }
       google.maps.event.addDomListener(window, 'load', initialize);
     </script>
+  <style>
+#main_nav {
+  box-shadow: 1px 1px 5px #fcfafa !important;
+}
+
+.active-img {
+  border: 2px solid #4232c2 !important;
+}
+
+.nav-item {
+  min-width: 150px;
+  font-size: 15px;
+}
+
+.nav-item span {
+  text-decoration: none;
+  font-size: 13px;
+  cursor: pointer;
+}
+</style>
 </th:block>
 </head>
 <body>
@@ -47,6 +67,32 @@
       <div th:if="${!infomation.isApproved() OR (infomation.isExpires() AND infomation.isAccessByOwner())}">
         <div sec:authorize="isFullyAuthenticated()">
           <div th:if="${infomation.isAccessByOwner() OR #strings.contains(#authentication.principal.authorities,'ROLE_ADMIN')}">
+            <div id="search_condition_id">
+              <div id="fixed_condition" style="height: 45px; padding-left: 16px;">
+                <div class="container-condition">
+                  <div class="container" style="padding: 10px; position: relative;">
+                    <div class="row" style="position: absolute; bottom: -22px; width: 100%; padding-top: 5px">
+                      <ul class="nav nav-tabs pop_up_tab" style="border-bottom: none;">
+                        <li class="nav-item"><span onclick="var elementPosition=document.getElementById('main_nav').offsetTop;window.scrollTo({top:elementPosition-50,behavior:'smooth'});"
+                          class="tab_popup_title nav-link active" data-bs-toggle="tab" data-bs-target="#province">TOP</span></li>
+                        <li class="nav-item"><span id="tab_thong-tin-lien-he_id"
+                          onclick="var elementPosition=document.getElementById('thong-tin-lien-he').offsetTop;window.scrollTo({top:elementPosition-50,behavior:'smooth'});"
+                          class="tab_popup_title nav-link" data-bs-toggle="tab" data-bs-target="#province">Thông tin liên hệ</span></li>
+                        <li class="nav-item" role="presentation"><span id="tab_thong-tin-mo-ta_id"
+                          onclick="var elementPosition=document.getElementById('thong-tin-mo-ta').offsetTop;window.scrollTo({top:elementPosition-50,behavior:'smooth'});"
+                          class="tab_popup_title nav-link" data-bs-toggle="tab" data-bs-target="#district" role="tab" aria-controls="district" aria-selected="false">Thông tin mô tả</span></li>
+                        <li class="nav-item" role="presentation"><span id="tab_dat-diem-bds_id"
+                          onclick="var elementPosition=document.getElementById('dat-diem-bds').offsetTop;window.scrollTo({top:elementPosition-50,behavior:'smooth'});" class="tab_popup_title nav-link"
+                          data-bs-toggle="tab" data-bs-target="#ward" role="tab" aria-controls="ward" aria-selected="false">Đặc điểm bất động sản</span></li>
+                        <li class="nav-item" role="presentation"><span id="tab_ban-do_id"
+                          onclick="var elementPosition=document.getElementById('ban-do').offsetTop;window.scrollTo({top:elementPosition-50,behavior:'smooth'});" class="tab_popup_title nav-link"
+                          data-bs-toggle="tab" data-bs-target="#street" role="tab" aria-controls="street" aria-selected="false">Bản đồ</span></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="container" style="padding: 10px;">
               <div class="row">
                 <div class="col-md-8">
@@ -58,19 +104,13 @@
                       <li th:text="${infomation.getBreadcrumbItems().get(3)}" class="breadcrumb-item active" aria-current="page"></li>
                     </ol>
                   </nav>
-                  
                   <div th:if="${infomation.isExpires()}">
                     <div class="alert alert-warning" role="alert">Bài viết đã hết hạn hiển thị.</div>
                   </div>
-                  
                   <div th:if="${!infomation.isApproved()}">
                     <div class="alert alert-warning" role="alert">Bài viết đang chờ phê duyệt.</div>
                   </div>
-                  
                   <div th:if="${infomation.isHasImage()}" class="full-screen-show">
-                    <div id="templatemo-slide-link-target" class="mb-3">
-                      <img class="img-fluid border rounded" th:src="${infomation.getImages().get(0).get(0)}" alt="Card image cap">
-                    </div>
                     <div class="worksingle-slide-footer row">
                       <div class="col-1 align-self-center">
                         <a href="#multi-item-example" role="button" data-bs-slide="prev"> <i class='bx bxs-chevron-left bx-sm text-dark'></i>
@@ -81,9 +121,10 @@
                         <div id="slide-show_id" class="carousel-inner" role="listbox">
                           <!--First slide-->
                           <div th:each="listImage: ${infomation.getImages()}" class="carousel-item">
-                            <div class="row" style="height: 70px; float: left;">
-                              <div class="col" th:each="itemImage: ${listImage}">
-                                <a class="templatemo-slide-link" th:href="${itemImage}"> <img style="height: 70px" class="img-fluid border rounded" th:src="${itemImage}" alt="preview">
+                            <div class="row" style="height: 70px; float: left; width: 100%;">
+                              <div style="width: 20%" th:each="itemImage: ${listImage}">
+                                <a class="templatemo-slide-link" th:href="${itemImage}"> <img style="height: 70px; width: 100%;" class="img-fluid border rounded" th:src="${itemImage}"
+                                  alt="preview">
                                 </a>
                               </div>
                             </div>
@@ -94,6 +135,9 @@
                         <a href="#multi-item-example" role="button" data-bs-slide="next"> <i class='bx bxs-chevron-right bx-sm text-dark'></i>
                         </a>
                       </div>
+                    </div>
+                    <div id="templatemo-slide-link-target" class="mb-3" style="margin-top: 10px;">
+                      <img class="img-fluid border rounded" th:src="${infomation.getImages().get(0).get(0)}" alt="Card image cap">
                     </div>
                   </div>
                   <div class="tieu-de" style="border: solid 1px #ddd; padding: 10px; margin-top: 20px">
@@ -130,7 +174,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="thong-tin-lien-he" style="border: solid 1px #ddd; padding: 10px; margin-top: 20px">
+                  <div id="thong-tin-lien-he" style="border: solid 1px #ddd; padding: 10px; margin-top: 20px">
                     <h2 class="worksingle-heading h3 pb-3 light-300 typo-space-line">Thông tin liên hệ</h2>
                     <table style="margin-top: 10px;" class="table table-borderless table_view">
                       <tbody>
@@ -153,7 +197,7 @@
                       </tbody>
                     </table>
                   </div>
-                  <div class="thong-tin-mo-ta" style="border: solid 1px #ddd; padding: 10px; margin-top: 20px">
+                  <div id="thong-tin-mo-ta" style="border: solid 1px #ddd; padding: 10px; margin-top: 20px">
                     <h2 class="worksingle-heading h3 pb-3 light-300 typo-space-line">Thông tin mô tả</h2>
                     <pre th:text="${infomation.getDescription()}" style="word-wrap: break-word; font-family: Montserrat, sans-serif; font-size: 1rem; overflow: hidden; margin-top: 20px">
 					</pre>
@@ -161,7 +205,7 @@
                       <iframe class="embed-responsive-item" th:src="${infomation.getVideoUrl()}" allowfullscreen></iframe>
                     </div>
                   </div>
-                  <div class="dat-diem-bds" style="border: solid 1px #ddd; padding: 10px; margin-top: 20px">
+                  <div id="dat-diem-bds" style="border: solid 1px #ddd; padding: 10px; margin-top: 20px">
                     <h2 class="worksingle-heading h3 pb-3 light-300 typo-space-line">Đặc điểm bất động sản</h2>
                     <table style="margin-top: 10px;" class="table table-borderless">
                       <tbody>
@@ -204,7 +248,7 @@
                       </tbody>
                     </table>
                   </div>
-                  <div class="ban-do" style="border: solid 1px #ddd; padding: 5px; margin-top: 20px;">
+                  <div id="ban-do" style="border: solid 1px #ddd; padding: 5px; margin-top: 20px;">
                     <h2 class="worksingle-heading h3 pb-3 light-300 typo-space-line">Bản đồ</h2>
                     <div class="col-md-12">
                       <div style="box-shadow: 1px 0px 10px #ddd; height: 400px" id="googleMap"></div>
@@ -256,11 +300,37 @@
         </div>
       </div>
       <div th:if="${infomation.isApproved() AND !infomation.isExpires()}">
-        <div class="container" style="padding: 10px;">
+        <div id="search_condition_id">
+          <div id="fixed_condition" style="height: 45px; padding-left: 16px;">
+            <div class="container-condition">
+              <div class="container" style="padding: 10px; position: relative;">
+                <div class="row" style="position: absolute; bottom: -22px; width: 100%; padding-top: 5px">
+                  <ul class="nav nav-tabs pop_up_tab" style="border-bottom: none;">
+                    <li class="nav-item"><span onclick="var elementPosition=document.getElementById('main_nav').offsetTop;window.scrollTo({top:elementPosition-50,behavior:'smooth'});"
+                      class="tab_popup_title nav-link active" data-bs-toggle="tab" data-bs-target="#province">TOP</span></li>
+                    <li class="nav-item"><span id="tab_thong-tin-lien-he_id"
+                      onclick="var elementPosition=document.getElementById('thong-tin-lien-he').offsetTop;window.scrollTo({top:elementPosition-50,behavior:'smooth'});" class="tab_popup_title nav-link"
+                      data-bs-toggle="tab" data-bs-target="#province">Thông tin liên hệ</span></li>
+                    <li class="nav-item" role="presentation"><span id="tab_thong-tin-mo-ta_id"
+                      onclick="var elementPosition=document.getElementById('thong-tin-mo-ta').offsetTop;window.scrollTo({top:elementPosition-50,behavior:'smooth'});" class="tab_popup_title nav-link"
+                      data-bs-toggle="tab" data-bs-target="#district" role="tab" aria-controls="district" aria-selected="false">Thông tin mô tả</span></li>
+                    <li class="nav-item" role="presentation"><span id="tab_dat-diem-bds_id"
+                      onclick="var elementPosition=document.getElementById('dat-diem-bds').offsetTop;window.scrollTo({top:elementPosition-50,behavior:'smooth'});" class="tab_popup_title nav-link"
+                      data-bs-toggle="tab" data-bs-target="#ward" role="tab" aria-controls="ward" aria-selected="false">Đặc điểm bất động sản</span></li>
+                    <li class="nav-item" role="presentation"><span id="tab_ban-do_id"
+                      onclick="var elementPosition=document.getElementById('ban-do').offsetTop;window.scrollTo({top:elementPosition-50,behavior:'smooth'});" class="tab_popup_title nav-link"
+                      data-bs-toggle="tab" data-bs-target="#street" role="tab" aria-controls="street" aria-selected="false">Bản đồ</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container content_view_bds" style="padding: 20px;">
           <div class="row">
             <div class="col-md-8">
-              <nav aria-label="breadcrumb" style="padding-top: 10px">
-                <ol class="breadcrumb">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb" style="margin-left: 15px;">
                   <li class="breadcrumb-item"><a th:text="${infomation.getBreadcrumbItems().get(0)}" href="/"></a></li>
                   <li class="breadcrumb-item"><a th:text="${infomation.getBreadcrumbItems().get(1)}" href="/"></a></li>
                   <li class="breadcrumb-item"><a th:text="${infomation.getBreadcrumbItems().get(2)}" href="/"></a></li>
@@ -268,9 +338,6 @@
                 </ol>
               </nav>
               <div th:if="${infomation.isHasImage()}" class="full-screen-show">
-                <div id="templatemo-slide-link-target" class="mb-3">
-                  <img class="img-fluid border rounded" th:src="${infomation.getImages().get(0).get(0)}" alt="Card image cap">
-                </div>
                 <div class="worksingle-slide-footer row">
                   <div class="col-1 align-self-center">
                     <a href="#multi-item-example" role="button" data-bs-slide="prev"> <i class='bx bxs-chevron-left bx-sm text-dark'></i>
@@ -281,9 +348,10 @@
                     <div id="slide-show_id" class="carousel-inner" role="listbox">
                       <!--First slide-->
                       <div th:each="listImage: ${infomation.getImages()}" class="carousel-item">
-                        <div class="row" style="height: 70px; float: left;">
-                          <div class="col" th:each="itemImage: ${listImage}">
-                            <a class="templatemo-slide-link" th:href="${itemImage}"> <img style="height: 70px" class="img-fluid border rounded" th:src="${itemImage}" alt="preview">
+                        <div class="row" style="height: 70px; float: left; width: 100%; max-width: 750px;">
+                          <div style="width: 20%" th:each="itemImage: ${listImage}">
+                            <a class="templatemo-slide-link" th:href="${itemImage}"> <img onclick="imageOnlick($(this))" style="height: 70px; width: 100%;" class="img-fluid border rounded"
+                              th:src="${itemImage}" alt="preview">
                             </a>
                           </div>
                         </div>
@@ -294,6 +362,9 @@
                     <a href="#multi-item-example" role="button" data-bs-slide="next"> <i class='bx bxs-chevron-right bx-sm text-dark'></i>
                     </a>
                   </div>
+                </div>
+                <div id="templatemo-slide-link-target" class="mb-3" style="margin-top: 10px; text-align: center;">
+                  <img class="img-fluid border rounded" th:src="${infomation.getImages().get(0).get(0)}" alt="Card image cap">
                 </div>
               </div>
               <div class="tieu-de" style="border: solid 1px #ddd; padding: 10px; margin-top: 20px">
@@ -330,13 +401,13 @@
                   </div>
                 </div>
               </div>
-              <div class="thong-tin-lien-he" style="border: solid 1px #ddd; padding: 10px; margin-top: 20px">
+              <div id="thong-tin-lien-he" style="border: solid 1px #ddd; padding: 10px; margin-top: 20px">
                 <h2 class="worksingle-heading h3 pb-3 light-300 typo-space-line">Thông tin liên hệ</h2>
                 <table style="margin-top: 10px;" class="table table-borderless table_view">
                   <tbody>
                     <tr>
                       <td style="color: #555;">Họ tên người liên hệ:</td>
-                      <td style="font-weight: bold; color: #555;" th:text="${infomation.getContactName()}"><div>xxx</div></td>
+                      <td style="font-weight: bold; color: #555;" th:text="${infomation.getContactName()}"><div></div></td>
                     </tr>
                     <tr>
                       <td style="color: #555;">Địa chỉ:</td>
@@ -353,7 +424,7 @@
                   </tbody>
                 </table>
               </div>
-              <div class="thong-tin-mo-ta" style="border: solid 1px #ddd; padding: 10px; margin-top: 20px">
+              <div id="thong-tin-mo-ta" style="border: solid 1px #ddd; padding: 10px; margin-top: 20px">
                 <h2 class="worksingle-heading h3 pb-3 light-300 typo-space-line">Thông tin mô tả</h2>
                 <pre th:text="${infomation.getDescription()}" style="word-wrap: break-word; font-family: Montserrat, sans-serif; font-size: 1rem; overflow: hidden; margin-top: 20px">
           </pre>
@@ -361,7 +432,7 @@
                   <iframe class="embed-responsive-item" th:src="${infomation.getVideoUrl()}" allowfullscreen></iframe>
                 </div>
               </div>
-              <div class="dat-diem-bds" style="border: solid 1px #ddd; padding: 10px; margin-top: 20px">
+              <div id="dat-diem-bds" style="border: solid 1px #ddd; padding: 10px; margin-top: 20px">
                 <h2 class="worksingle-heading h3 pb-3 light-300 typo-space-line">Đặc điểm bất động sản</h2>
                 <table style="margin-top: 10px;" class="table table-borderless">
                   <tbody>
@@ -404,7 +475,7 @@
                   </tbody>
                 </table>
               </div>
-              <div class="ban-do" style="border: solid 1px #ddd; padding: 5px; margin-top: 20px;">
+              <div id="ban-do" style="border: solid 1px #ddd; padding: 5px; margin-top: 20px;">
                 <h2 class="worksingle-heading h3 pb-3 light-300 typo-space-line">Bản đồ</h2>
                 <div class="col-md-12">
                   <div style="box-shadow: 1px 0px 10px #ddd; height: 400px" id="googleMap"></div>
@@ -473,12 +544,73 @@
 
             $('div.like-button').on('click', function(e) {
               $(this).toggleClass('liked');
-
-              //setTimeout(() => {
-              //    $(e.target).removeClass('liked')
-              //  }, 2000)
             });
+            init()
           });
+          
+          function init() {
+          	$("#popup_tab_block").css("top", $("#input_popup_tab").height() + 17);
+          	$(window).scroll(function() {
+          		var x1 = $(window).scrollTop();
+          		var x2 = $("#search_condition_id").offset().top;
+          		if (x1 >= x2) {
+          			$("#fixed_condition").addClass("fixed-top");
+          		} else {
+          			$("#fixed_condition").removeClass("fixed-top");
+          		}
+          		
+                clearTimeout( $.data( this, "scrollCheck" ) );
+                $.data( this, "scrollCheck", setTimeout(function() {
+              		checkOffset(x1);
+                }, 500) );
+          	});
+
+          	var widthH = window.innerWidth;
+          	if (widthH < 850) {
+          		$("#search_condition_id").hide();
+          	}
+
+          	window.addEventListener('resize', function(event) {
+          		var widthH = window.innerWidth;
+          		if (widthH < 850) {
+          			$("#search_condition_id").hide();
+          		} else {
+          			$("#search_condition_id").show();
+          		}
+          	}, true);
+          }
+          
+          function checkOffset(scrollTop) {
+            var ofs1 = document.getElementById('thong-tin-lien-he').offsetTop;
+            var ofs2 = document.getElementById('thong-tin-mo-ta').offsetTop;
+            var ofs3 = document.getElementById('dat-diem-bds').offsetTop;
+            var ofs4 = document.getElementById('ban-do').offsetTop;
+            
+            ofs1 = ofs1 + 60;
+            ofs2 = ofs2 - 60;
+            ofs3 = ofs3 - 60;
+            ofs4 = ofs4 - 60;
+            
+            if (scrollTop >= ofs1 && scrollTop < ofs2) {
+              activeScroll($('#tab_thong-tin-lien-he_id'));
+            } else if (scrollTop >= ofs2 && scrollTop < ofs3) {
+              activeScroll($('#tab_thong-tin-mo-ta_id'));
+            } else if (scrollTop >= ofs3 && scrollTop < ofs4) {
+              activeScroll($('#tab_dat-diem-bds_id'));
+            } else if (scrollTop >= ofs4) {
+              activeScroll($('#tab_ban-do_id'));
+            }
+          }
+          
+          function activeScroll(obj) {
+            $(".nav-item span").removeClass("active");
+           	$(obj).addClass("active");
+          }
+          
+          function imageOnlick(obj) {
+            $(".img-fluid").removeClass("active-img");
+            $(obj).addClass("active-img");
+          }
         </script>
     <script>
           $(window).load(function() {

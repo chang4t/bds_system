@@ -61,6 +61,15 @@ public class PostInfomation {
 	private boolean isCanceled;
 	private boolean isExpires;
 	private boolean isAccessByOwner;
+	private String desscriptCard;
+
+	public String getDesscriptCard() {
+		return desscriptCard;
+	}
+
+	public void setDesscriptCard(String desscriptCard) {
+		this.desscriptCard = desscriptCard;
+	}
 
 	public String getAcreage() {
 		return this.acreage;
