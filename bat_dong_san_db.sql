@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 04, 2021 at 07:55 AM
+-- Generation Time: May 17, 2021 at 06:49 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -39,19 +39,30 @@ CREATE TABLE `bds_ news` (
   `price` decimal(10,0) DEFAULT NULL,
   `create_by` varchar(10) DEFAULT NULL,
   `create_at` datetime DEFAULT NULL,
-  `status_flg` int(1) NOT NULL DEFAULT 0
+  `status_flg` int(1) NOT NULL DEFAULT 0,
+  `delete_flg` int(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `bds_ news`
 --
 
-INSERT INTO `bds_ news` (`news_id`, `category_id`, `title`, `level`, `start_date`, `end_date`, `price`, `create_by`, `create_at`, `status_flg`) VALUES
-(28, 77, 'Bán đất mặt phố Thành Phố Hồ Chí Minh - An Phú Tây', 1, '2021-04-27 00:00:00', '2021-04-30 00:00:00', '500000', '1', '2021-04-27 22:43:49', 0),
-(29, 74, 'Thêm tin bất động sản của bạnThêm tin bất động sản của bạn', 2, '2021-04-30 00:00:00', '2021-05-07 00:00:00', '1510000', '1', '2021-04-30 17:51:16', 0),
-(30, 76, '134 Quán Thánh - Bán chung cư cao cấp tại Hà Nội', 1, '2021-04-30 00:00:00', '2021-05-02 00:00:00', '280000', '1', '2021-04-30 20:16:56', 0),
-(31, 74, 'HÔNG TIN CƠ BẢNHÔNG TIN CƠ BẢNHÔNG TIN CƠ BẢNHÔNG TIN CƠ BẢN', 3, '2021-04-30 00:00:00', '2021-05-05 00:00:00', '990000', '1', '2021-04-30 21:51:17', 0),
-(32, 77, 'Bất động sản biển Đà Nẵng giá tốt - Đà Nẵng Resort', 3, '2021-05-01 00:00:00', '2021-05-15 00:00:00', '6540000', '1', '2021-05-01 09:07:20', 0);
+INSERT INTO `bds_ news` (`news_id`, `category_id`, `title`, `level`, `start_date`, `end_date`, `price`, `create_by`, `create_at`, `status_flg`, `delete_flg`) VALUES
+(1, 74, 'Biệt thự Lavila nhà đang trống cần cho thuê gấp nhà 4 PN, 5W', 1, '2021-05-13 00:00:00', '2021-05-31 00:00:00', '4100000', 'US00000002', '2021-05-13 22:09:05', 1, 0),
+(2, 76, 'NỀN SUẤT NỘI BỘ BIÊN HÒA NEW CITY, GIÁ 17 - 19TR/M2, SỔ ĐỎ TRAO TAY, XÂY DỰNG TỰ DO', 2, '2021-05-13 00:00:00', '2021-05-31 00:00:00', '6150000', 'US00000002', '2021-05-13 22:30:03', 1, 0),
+(3, 77, 'HILL VILLAS – NƠI CUỘC SỐNG BỪNG SÁNG.GIÁ ĐẦU TƯ 3,2 TỶ 1 TRỆT 2 LẦU ', 2, '2021-05-13 00:00:00', '2021-06-02 00:00:00', '6870000', 'US00000002', '2021-05-13 22:38:22', 1, 0),
+(4, 94, 'CẦN BÁN GẤP NHÀ XƯỞNG - 1700.8M2 VÕ THỊ THỪA, QUẬN 12, TPHCMa', 1, '2021-05-13 00:00:00', '2021-05-28 00:00:00', '3380000', 'US00000003', '2021-05-13 22:46:59', 1, 0),
+(5, 74, 'ĐẤT MINH TRÍ VÀ MINH PHÚ+ LÔ GÓC + 362M2 + MẶT TIỀN 28M KINH DOANH BUÔN BÁN', 2, '2021-05-13 00:00:00', '2021-05-30 00:00:00', '3380000', 'US00000003', '2021-05-13 23:08:28', 1, 0),
+(6, 74, 'Thêm tin bất động sản của bạnThêm tin bất động sản của bạn', 1, '2021-05-15 00:00:00', '2021-05-26 00:00:00', '2430000', 'US00000003', '2021-05-15 21:27:34', 1, 0),
+(38, 77, 'QUỸ BIỆT THỰ, LIỀN KỀ, SHOPHOUSE HOT NHẤT KHU ĐÔ THỊ VINHOMES OCEAN PARK.', 2, '2021-05-05 00:00:00', '2021-06-30 00:00:00', '26460000', 'US00000004', '2021-05-04 21:50:24', 1, 0),
+(45, 86, 'BÁN CH VINHOMES GRAND PARK GIÁ TỐT NHẤT.', 1, '2021-05-05 00:00:00', '2021-05-30 00:00:00', '5860000', 'US00000004', '2021-05-05 14:52:59', 1, 0),
+(47, 83, 'CHO THUÊ VINHOMES CENTRAL PARK | CĂN HỘ: 1-2-3-4 PHÒNG NGỦ', 3, '2021-05-06 00:00:00', '2021-05-30 00:00:00', '5610000', 'US00000005', '2021-05-05 15:01:56', 0, 1),
+(48, 80, 'CHO THUÊ CĂN HỘ VINHOMES CENTRAL PARK GIÁ TỐT NHẤT', 1, '2021-05-06 00:00:00', '2021-05-30 00:00:00', '8415000', 'US00000005', '2021-05-05 15:06:55', 1, 0),
+(50, 91, 'ĐẤT NỀN BIỆT THỰ KHU COMPOUND YÊN TĨNH', 2, '2021-05-06 00:00:00', '2021-06-01 00:00:00', '12180000', 'US00000006', '2021-05-05 15:27:27', 1, 0),
+(54, 80, 'CĂN HỘ CAO CẤP PROSPER PLAZA, ĐẦY ĐỦ TIỆN ÍCH, DT 50M2, 53M2, 65M2, 70M2, SỔ HỒNG TRAO TAY', 3, '2021-05-11 00:00:00', '2021-06-20 00:00:00', '19180000', 'US00000006', '2021-05-10 01:13:12', 1, 0),
+(55, 77, 'BÁN CẮT LỖ SÂU SHOPHOUSE BIỆT THỰ, LIỀN KỀ GIÁ RẺ NHẤT DỰ ÁN THE MANOR CENTRAL PARK', 2, '2021-05-11 00:00:00', '2021-05-30 00:00:00', '6825000', 'US00000007', '2021-05-10 01:15:37', 1, 0),
+(56, 80, 'CĂN HỘ THE RIVER THỦ THIÊM VIEW SÔNG', 3, '2021-05-11 00:00:00', '2021-06-27 00:00:00', '22540000', 'US00000008', '2021-05-10 01:18:33', 1, 0),
+(57, 85, 'ĐẤT KHU ĐÔ THỊ CÁT TƯỜNG PHÚ HƯNG ĐỒNG XOÀI BÌNH PHƯỚC', 2, '2021-05-11 00:00:00', '2021-07-14 00:00:00', '23025000', 'US00000010', '2021-05-10 01:21:38', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -124,8 +135,15 @@ CREATE TABLE `contacts` (
 
 INSERT INTO `contacts` (`user_id`, `ind`, `contact_name`, `phone`, `dia_chi`, `email`, `mobile_phone`) VALUES
 ('1', 1, 'Thùy Trang', '0123456719', 'Thừa Thiên Huế', NULL, NULL),
-('1', 6, 'Phương Văn Cường', '0906404322', 'Eahleo-DakLak', 'cuongphuong@gmail.com', NULL),
-('1', 7, 'Trần Văn A', '0985647365', 'Hà Nội', 'vanA@gmail.com', NULL);
+('US00000002', 1, 'Phương Văn Cường', '0906404322', 'Eahleo-DakLak', 'cuongphuong@gmail.com', NULL),
+('US00000003', 1, 'Trần Văn A', '0985647365', 'Hà Nội', 'vanA@gmail.com', NULL),
+('US00000004', 1, 'Nguyễn Văn Hiếu', '0989123456', 'Hà Nội', 'hieunguyen@gmail.com', NULL),
+('US00000005', 1, 'Võ Thị Linh Chi', '0908444222', 'Hồ Chí Minh', 'linhchi12@gmail.com', NULL),
+('US00000006', 1, 'Cao Xuân Hòa', '0907239111', 'Hồ Chí Minh', 'xuanhoa23@gmail.com', NULL),
+('US00000007', 1, 'Nguyễn Minh Châu', '0901234567', 'Đà Nẵng', 'chaunguyen11@gmail.com', NULL),
+('US00000008', 1, 'Võ Mỹ Phúc', '0767123456', 'Hà Nội', '', NULL),
+('US00000009', 1, 'Trần Văn B', '0123456789', 'Hải Phòng', 'tranvanb@gmail.com', NULL),
+('US00000010', 1, 'Võ Minh C', '0987654321', 'Cà Mau', 'vominhc@gmail.com', NULL);
 
 -- --------------------------------------------------------
 
@@ -142,7 +160,7 @@ CREATE TABLE `detail_news` (
   `street_id` int(10) DEFAULT NULL,
   `project_id` int(10) DEFAULT NULL,
   `contact_ind` int(10) DEFAULT NULL,
-  `direction` varchar(5) DEFAULT NULL,
+  `direction` varchar(10) DEFAULT NULL,
   `front_width` double DEFAULT NULL,
   `entrance_width` double DEFAULT NULL,
   `floors_num` int(10) DEFAULT NULL,
@@ -157,20 +175,29 @@ CREATE TABLE `detail_news` (
   `video_url` varchar(100) DEFAULT NULL,
   `acreage` double DEFAULT NULL,
   `price` decimal(10,0) DEFAULT NULL,
-  `unit` int(1) DEFAULT NULL,
-  `detail_newscol` varchar(45) DEFAULT NULL
+  `unit` int(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `detail_news`
 --
 
-INSERT INTO `detail_news` (`news_id`, `formality`, `province_id`, `district_id`, `ward_id`, `street_id`, `project_id`, `contact_ind`, `direction`, `front_width`, `entrance_width`, `floors_num`, `room_num`, `furniture`, `toilet_num`, `juridical_info`, `images`, `lat`, `lng`, `description`, `video_url`, `acreage`, `price`, `unit`, `detail_newscol`) VALUES
-(28, 'SELL', 1, 1, 1, 8, 10, 6, 'EAST', 6, 2, 4, 7, 'Đầy đủ tiện nghi', 4, 'Đã có sổ đỏ', '/upload/multi-file/2021-04-27/00-15-5D-C2-B9-00/1619537475966', 0, 0, 'Khu nhà có vị trí thuận lợi: Gần công viên, gần trường học ... Tổng diện tích 52m2, đường đi ô tô vào tận cửa.', 'https://www.youtube.com/watch?v=n64YXVudU1o&list=RD8CU_MG1oLe8&index=8', 150, '0', 1, NULL),
-(29, 'LEASE', 1, NULL, NULL, NULL, NULL, 1, 'NONE', 0, 0, NULL, NULL, NULL, NULL, NULL, '/upload/multi-file/2021-04-30/00-15-5D-B2-EA-A0/1619779401981', 0, 0, NULL, NULL, 0, NULL, NULL, NULL),
-(30, 'SELL', 2, 25, 327, 7221, 1122, 7, 'EAST', 5, 2, 2, 4, 'Đầy đủ nội thất', 2, 'Đã có sổ đỏ', '/upload/multi-file/2021-04-30/00-15-5D-B2-EA-A0/1619788393685', 0, 0, 'Khu nhà có vị trí thuận lợi: Gần công viên, gần trường học ... \n\nTổng diện tích 52m2, đường đi ô tô vào tận cửa.\n\nĐất đẹp, đúng phong thủ', 'https://www.youtube.com/embed/PObQZZOjSOs?autoplay=1', 200, '2', 1, NULL),
-(31, 'SELL', 1, 1, 1, NULL, NULL, 1, 'NONE', 0, 0, NULL, NULL, NULL, NULL, NULL, '/upload/multi-file/2021-04-30/00-15-5D-B2-EA-A0/1619794202259', 0, 0, NULL, NULL, 0, NULL, NULL, NULL),
-(32, 'SELL', 3, 60, 952, 10998, 2077, 6, 'EAST', 10, 3, 10, 15, 'Đầy đủ', 2, 'Có sổ hồng', '/upload/multi-file/2021-05-01/00-15-5D-B2-EA-A0/1619834648260', 0, 0, 'Khu nhà có vị trí thuận lợi: Gần công viên, gần trường học ... Tổng diện tích 52m2, đường đi ô tô vào tận cửa.\n\nVị trí tiện lợi', NULL, 0, '5', 1, NULL);
+INSERT INTO `detail_news` (`news_id`, `formality`, `province_id`, `district_id`, `ward_id`, `street_id`, `project_id`, `contact_ind`, `direction`, `front_width`, `entrance_width`, `floors_num`, `room_num`, `furniture`, `toilet_num`, `juridical_info`, `images`, `lat`, `lng`, `description`, `video_url`, `acreage`, `price`, `unit`) VALUES
+(1, 'LEASE', 1, 8, 110, 2887, 252, 1, 'EAST', 0, 0, 3, 4, 'Cao cấp', 3, NULL, '/upload/multi-file/2021-05-13/00-15-5D-C0-97-9A/1620917838469', 0, 0, '- Diện tích: 6m x 17.6m, 1 trệt, 2 lầu.\n- Thiết kế 4 phòng ngủ.\n- Giá thuê 17 triệu/th.\n- Thuận tiện cho việc mở văn phòng và ở.\n- Khu vực an ninh, có bảo vệ 24/24, dân trí cao, tập trung những doanh nhân, người nổi tiếng.\n- Cách ngã tư giao với Nguyên Văn Linh chỉ 5 km. Nằm giữa khu Phú Mỹ Hưng đông đúc và khu công nghiệp Hiệp Phước, Long Hậu.', NULL, 105.6, '17', 0),
+(2, 'SELL', 5, 71, 1078, 14971, 2270, 1, 'EAST', 12, 6, NULL, NULL, NULL, NULL, 'Đã có sổ đỏ', '/upload/multi-file/2021-05-13/00-15-5D-C0-97-9A/1620919659486', 0, 0, 'Hưng Thịnh triển khai dự án đất nền Biên Hòa New City nằm trong sân golf Long Thành, dự án đất nền khu đô thị khép kín, 3 mặt giáp sông Đồng Nai.\nPháp lý sổ đỏ quy hoạch đồng bộ.\nThông tin dự án đất nền Đồng Nai \"Biên Hòa New City\".\n+ Chủ đầu tư: Golf Long Thành.\n+ Phát triển dự án: Hưng Thịnh Corp.\n+ Pháp lý: Sổ đỏ trao tay, sở hữu lâu dài.\n+ Quy mô: 119ha.\n+ Loại hình: Nhà phố liên kế, biệt thự, bến du thuyền, khu thương mại, hành chính, y tế, trường học các cấp, công viên,..\n+ Đã phân lô hạ tầng hiện hữu, cây xanh, đường nhựa.\n- Nhà phố với các diện tích 90m2 - 95m2 - 100m2 - 120m2 - 137m2 - 140m2 - 160m2.\n- Biệt thự với các diện tích 240m2 - 300m2 - 340m2 - 400m2 - 600m2 - 700m2 - 880m2.\n+ Đường nội khu: 13m, 15m, 18m, 24m và 30m.\n+ Giá bán: 17 - 19 triệu/m2.\nTiến độ thanh toán của Biên Hòa New City:\n+ Ký hợp đồng thanh toán trước chỉ 50%.\n+ Góp không lãi suất trong 6 tháng.\n+ Đặt cọc chỉ với 50 triệu/nền, còn lại trả chậm theo tiến độ.\n\n6 lý do lựa chọn đất nền Biên Hòa New City:\n+ 1: Nơi có môi trường sống trong lành, mát mẻ, rất tốt cho sức khỏe.\n+ 2: Biên Hòa New City là khu đô thị khép kín, an ninh 24/24, đủ mọi tiện ích phục vụ cuộc sống.\n+ 3: Cầu Đồng Nai 2 nối Biên Hòa New City với quận 9 sẽ làm tăng giá và giá trị của Biên Hòa New City.\n+ 4: Biên Hòa New City cách sân bay Long Thành chỉ 10 phút, giá đất khu vực lên từng ngày.\n+ 5: Giá Biên Hòa New City chỉ từ 11 triệu/m2 đã tăng lên 17tr - 19tr/m2, sẽ tăng mạnh vào thời gian tới, cơ hội sinh lời lớn cho nhà đầu tư đón đầu.\n+ 6: Trục đường Hương Lộ 2 kết nối từ cao tốc về tới ngay cổng dự án (hoàn thành 65% toàn tuyến đường).\n\n- Đặc biệt cơn sốt của các Tập đoàn Lớn: Novaland với giá bán từ 6 - 8 tỷ/nhà phố, Nam Long WaterFront đất nền 30 triệu/m2, Long Hưng City 18 - 35 triệu/m2 thì Biên Hòa New City vẫn là một miếng bánh béo bở cho các nhà đầu tư.', NULL, 100, '19', 0),
+(3, 'SELL', 13, 178, 2498, NULL, 2724, 1, 'EAST', 8, 21, 2, 6, 'BÀN GIAO THÔ, HOÀN THIỆN MẶT NGOÀI', 7, 'SỔ TỪNG CĂN', '/upload/multi-file/2021-05-13/00-15-5D-C0-97-9A/1620919943414', 0, 0, 'Vị trí vàng Vịnh Phan Thiết-Chiết khấu 1-3% :\nMũi Né - Phan Thiết từ lâu đã trở thành một địa điểm du lịch không chỉ nổi tiếng ở trong nước mà còn Mũi Né - Phan Thiết từ lâu đã trở thành một địa điểm du lịch không chỉ nổi tiếng ở trong nước mà còn trên Thế Giới.\n\nNhằm mục đích tối đa hóa nhu cầu của nhà đầu tư về nhu cầu nghỉ dưỡng và sinh lợi nhuận cho thuê.\nChủ đầu tư tạo ra 2 option thiết kế :\n+ Thiết kế : 4 phòng ngủ, 5wc, sân thượng tầng mái\n+ Thiết kế : 6 phòng ngủ, 7wc, sân thượng tầng mái và chỗ thiết kế thang máy.\nCăn điển hình : 192m2\nDiện tích 6 x 16\nDiện tích xây dựng 345m2.\nKhoảng lùi trước 6m, khoảng lùi sau lưng 2m, khoảng lùi bên hông 2m.\n\nPhương thức thanh toán : theo tiến độ 8 tháng bàn giao nhà, giấy chứng nhận\nNgân hàng liên kết : Ngân hàng TMCP Nam Á ( Nam Á Bank ).\nĐối tượng áp dụng : Khách hàng mua biệt thự tại dự án Hill Villas đăng kí chương trình hỗ trợ vay vốn.\nTài sản thế chấp : Biệt thự tại dự án Hill Villas.\nHạn mức hỗ trợ vay : Tối đa 70% giá trị căn biệt thự được quy định tại hợp đồng.\nThời hạn vay : từ 5 năm đến 25 năm\nLãi suất vay : ưu đãi năm đầu với lãi suất 7.5%, những năm biết theo tính theo biên độ giao động tại thời điểm + 4%.', NULL, 192, '7', 1),
+(4, 'SELL', 1, 13, 170, 3760, 415, 1, 'SOUTHWEST', 21, 20, NULL, NULL, NULL, NULL, NULL, '/upload/multi-file/2021-05-13/00-15-5D-C0-97-9A/1620920375271', 0, 0, 'Cần bán gấp nhà xưởng:\n- Mới xây.\n- Địa chỉ: 34/45 - 34/45A - 34/45B Đường Võ Thị Thừa, KP3, Phường An Phú Đông, Quận 12, TPHCM.\n- Diện tích: 21,2 x 80,2 = 1700,8 m2, giao thông thuận lợi, đường nhựa xe ra vào 24/24, xe container vào tận nơi, không kẹt xe, cấm giờ, gần cầu vượt ngã tư Ga, cầu vượt Bình Phước, khu dân cư đông đúc.\n- Có 2 văn phòng làm việc, khu vực để xe thông thoáng, thuận cho việc xuất nhập hàng, tường bao khép kín, 2 lớp cửa kiên cố bảo vệ.\n- Nhà xưởng xây dựng theo tiêu chuẩn công nghiệp, nền bê tông chịu lực cao, kiên cố, trần cao 11,5m có nóc thông gió, có lưới inox ngăn côn trùng xâm nhập, hệ thống PCCC, kết cấu xưởng gắn trục 5 tấn dài 74m; thích hợp sản xuất kinh doanh hoặc làm kho chứa hàng cho các ngành nghề.\n- Điện 3 pha, sử dụng nước thủy cục.\n- Đang cho thuê 140tr/tháng.', NULL, 1700.8, '90', 1),
+(5, 'SELL', 2, 46, 744, NULL, 1878, 1, 'NONE', 28, 9, NULL, NULL, NULL, NULL, 'Đã có sổ đỏ, pháp lý chuẩn, 100% đất ở.', '/upload/multi-file/2021-05-13/00-15-5D-C0-97-9A/1620921475145', 0, 0, 'Chính chủ cần bán 2 lô đất Minh Trí và Minh Phú 360m2 và lô góc 362m2 + mặt tiền 15m và lô góc mặt tiền 28m + đường ô tô tải tránh nhau + Kinh doanh buôn bán. Sổ đỏ pháp lý đầy đủ.\n\n- Tôi chính chủ cần bán đi 1 trong 2 lô đất vị trí đắc địa đẹp nhất khu vực, có thể kinh doanh buôn bán được luôn,\n- Một lô 362m2 Mặt tiền 28m + Lô góc 2 mặt tiền, mặt 28m là mặt đường chính. 100% đất ở. GIÁ: 10,5tr/m2 (Có thương lượng).\n- Một lô 360m2 Mặt tiền 15m đường trục chính liên thôn liên xã. 100% đất ở, có sẵn cây ăn quả,...! Giá: 7,5tr/m2.\n\n- Cả 2 lô đường đều rất rộng. Ô tô tải tránh nhau thoải mái. Dân cư đông đúc, an ninh cực tốt, văn minh, sạch sẽ, kinh doanh buôn bán,...!\n- Trong bán kính 2km có Trường học cấp 1, cấp 2, cấp 3, ra Chợ 300m, gần trung tâm y tế, gần UBND Xã, ra sân Golf Ha Noi Golf Clup, 5p ra Hồ Đồng Đò đang phát triển cực nhanh, cách khu Công Nghiệp Sạch chuẩn bị khởi công 1km.\n15p đi xe ra sân bay Nội Bài.\n- Có thể xây làm nghỉ dưỡng cuối tuần hoặc chia lô rất đẹp.', NULL, 362, '3', 1),
+(6, 'LEASE', 2, 26, 342, 7335, 1173, 1, 'NONE', 0, 0, NULL, NULL, NULL, NULL, NULL, '/upload/multi-file/2021-05-15/00-15-5D-C0-97-9A/1621088817159', 0, 0, NULL, NULL, 10.5, '13', 0),
+(38, 'SELL', 2, 33, 495, NULL, NULL, 1, 'NORTH', 100, 200, 6, 35, 'Đầy đủ', 35, 'Có sổ đỏ', '/upload/multi-file/2021-05-04/80-56-F2-B3-53-BD/1620137677129', 0, 0, NULL, NULL, 150, '15', 1),
+(45, 'SELL', 1, 21, 279, NULL, 865, 1, 'NONE', 0, 0, NULL, NULL, NULL, NULL, NULL, '/upload/multi-file/2021-05-05/80-56-F2-B3-53-BD/1620201096324', 0, 0, 'Hơn 2000 Căn hộ và 30 căn Shophouse đang bán đáp ứng mọi nhu cầu về an cư và kinh doanh của khách hàng bán toà S6 và S10 phân khu Origami giá gốc chủ đầu tư.\n\n- Studio (diện tích 30 - 35m2) giá gốc 900 triệu - 1.3 tỷ. Giá bán hiện tại: 1.2 tỷ - 1.5 tỷ.\n\n- Căn hộ 1PN + 1 (diện tích 46.5 - 51.5 m2) giá gốc 1.4 - 1.8 tỷ. Giá bán hiện tại: 1.68 tỷ - 2 tỷ.\n\n- Căn hộ 2PN 1WC (diện tích: 59 m2) Giá gốc 1.6 - 2.2 tỷ. Giá bán hiện tại: 1.960 - 2.5 tỷ.\n\n- Căn hộ 2PN + 1 (2WC) diện tích 69m2 căn góc. Giá gốc 2.3 - 2.8 tỷ. Giá bán hiện tại: 2.5 - 3 tỷ.\n\n- Căn hộ 3PN 81.7m2 giá gốc: 2.4 - 3.4 tỷ giá bán hiện tại: 2.7 - 3.6 tỷ.\n\nTất cả các sản phẩm vẫn đang còn hỗ trợ lãi suất 0% cho khoản vay 70% tới đầu năm 2021 (Thời gian chính xác tùy thuộc vào từng tòa nhà). Ân hạn gốc 12 tháng kể từ khi khách mua và làm hồ sơ vay mới.\n\n- Công ty đang nhận booking và bán mới giỏ hàng phân khu Origami giai đoạn 2 từ chủ đầu tư, chỉ cần thanh toán 15% tương đương 300tr nhận nhà, số tiền còn lại được ân hạn cả gốc và lãi trong vòng 24 tháng (sở hữu nhà thành phố chưa bao giờ dễ dàng như vậy).\n\nRổ hàng hiện tại có khoảng hơn 500 căn hộ và hơn 30 căn shophouse.\n\nBán, cho thuê đáp ứng mọi nhu cầu về an cư và kinh doanh của quý khách hàng.\n\nTiện ích nổi trội tại dự án:\n- Công viên ven sông 36ha.\n- Bệnh viện quốc tế Vinmec.\n- Trường học quốc tế Vinschool.\n- Hệ thống 1000 máy thể thao ngoài trời, 100 chòi nướng BBQ, công viên Nhật Bản, hồ cá koi...\n- Tiện ích nổi bật: Trung tâm thương mại Vincom, siêu thị Vinmart, hồ bơi, khu vui chơi, công viên ánh sáng lớn nhất Đông Nam Á...', NULL, 60, '5', 1),
+(47, 'LEASE', 1, 3, 38, NULL, NULL, 1, 'NONE', 0, 0, NULL, 3, NULL, 2, NULL, '/upload/multi-file/2021-05-05/80-56-F2-B3-53-BD/1620201571548', 0, 0, '* Vinhomes Service Residence:\n- Phí quản lý: 19k/m2.\n- Phí gửi oto: 1.430k/xe/tháng.\n- Phí gửi xe máy: 170k/xe/tháng.\n- Phí nước nóng: 50k/m3.\n- Phí Điện - Nước: Tính theo khung giá nhà nước (đồng hồ riêng).\n\n* Tiện ích dành cho cư dân tại Vinhomes:\n- Hồ bơi (Free).\n- Phòng Gym & Yoga (Free).\n- Sảnh lounge tiếp khách (Free).\n- Nhà sinh hoạt cộng đồng (Free).\n- Hầm gửi xe (B1, B2, B3).\n- TTTM Vincom Landmark 81.\n- Camera giám sát, an ninh 24/7.\n- Công viên ven sông và bên du thuyền 5*.\n- Hệ thống sân thể thao ngoài trời (Tenis, cầu long... ).\n- Tiệc nướng, chồi BBQ ngoài trời (Free).', NULL, 50, '15', 0),
+(48, 'LEASE', 1, 2, 22, NULL, 74, 1, 'NONE', 0, 0, NULL, NULL, 'Đầy đủ tiện nghi', NULL, 'Đã có sổ đỏ', '/upload/multi-file/2021-05-05/80-56-F2-B3-53-BD/1620201850777', 0, 0, 'Xin gửi tới quý anh chị bảng giá cho thuê căn hộ mới nhất.\n- 1 PN (36 - 54,5m2): 12 - 16 triệu/tháng.\n- 2 PN (68 - 91m2): 15 - 28 triệu/tháng.\n- 3 PN (94 - 150m2): 20 - 35 triệu/tháng.\n- 4 PN (155 - 187m2): 35 - 45 triệu/tháng.\n- Penthouse (150 - 400m2): 45 - 150 triệu/tháng.\n\n* Bảng phí dịch vụ tại Vinhomes Central Park.\n- Phí quản lý: 19k/m2.\n- Phí gửi ô tô: 1.430k/tháng.\n- Phí gửi xe máy: 170k/tháng.\n- Phí nước nóng: 55k/m3.\n- Điện, nước được tính theo khung giá nhà nước.\n\n* Bảng giá cho thuê theo ngày 1 - 2 - 3 - 4 PN tại Vinhomes Central Park:\n- 1PN: 1tr/ngày.\n- 2PN: 1.2tr/ngày.\n- 3PN: 1.7tr/ngày.\n- 4PN: 3.5tr/ngày.\n\nCăn hộ Landmark 81 diện tích 55m2 - 410m2 giá từ 19tr/th - 38tr/th, view sông công viên.\nTiện ích đặc thù tại Vinhomes Central Park:\n- Tầng hầm giữ xe (bao gồm tầng hầm xe máy B1, ô tô B2, B3).\n- Hồ bơi ngoài trời và cây xanh ở các cụm căn hộ, phòng xông hơi (miễn phí).\n- Mặt bằng thương mại dưới các tòa căn hộ Vinhomes.\n- Công viên ven sông Sài Gòn với bến du thuyền 5 sao là điểm nhấn.\n- Phòng tập gym (miễn phí).\n- Sảnh lounge sang trọng (sảnh dành cho cư dân tiếp khách rất sang trọng theo tiêu chuẩn 5 sao). - Nhà sinh hoạt cộng đồng.\n- Hệ thống sân tập thể thao ngoài trời (sân bóng đá mini, sân tennis, sân.', NULL, 70, NULL, NULL),
+(50, 'SELL', 1, 19, 256, NULL, NULL, 1, 'NONE', 0, 0, NULL, NULL, NULL, NULL, 'Đã có sổ hồng', '/upload/multi-file/2021-05-05/80-56-F2-B3-53-BD/1620203073714', 0, 0, 'Đất Nền Biệt Thự Khu Compound Yên Tĩnh 85tr/m2 Có Sổ Hồng, Được Xây Dựng, Trung Tâm Quận 7. Giá Còn Thương Lượng Nhẹ.\n\nTôi chính chủ cần bán lô đất nền biệt thự trong khu Compound Nhà Phương Nam - Mặt tiền Đường Nguyễn Văn Linh.\n\nThông tin đất nền: 15x13m = 195m2.\nĐường nội bộ: 10m.\nĐược xây dựng 1 trệt & 1 lầu.\nGiá bán: 85tr/m2 = 16,5 tỷ / lô.\nHướng Chánh Tây.\n\nCơ hội để mua đầu tư & tìm 1 nơi an cư tốt để ở.\n\nĐất đã có sổ hồng được xây dựng bất kỳ lúc nào. Pháp Lý rõ ràng.', NULL, 195, '17', 1),
+(54, 'SELL', 3, 57, 938, 10484, NULL, 1, 'NONE', 0, 0, NULL, NULL, NULL, NULL, NULL, '/upload/multi-file/2021-05-10/80-56-F2-B3-53-BD/1620583864945', 0, 0, NULL, NULL, 65, '3', 1),
+(55, 'SELL', 7, 91, 1394, 16575, 2462, 1, 'NONE', 0, 0, 5, 3, NULL, NULL, NULL, '/upload/multi-file/2021-05-10/80-56-F2-B3-53-BD/1620584018855', 0, 0, NULL, NULL, 75, '16', 1),
+(56, 'LEASE', 13, 178, 2502, 20606, 2727, 1, 'SOUTH', 0, 0, NULL, NULL, NULL, NULL, NULL, '/upload/multi-file/2021-05-10/80-56-F2-B3-53-BD/1620584204857', 0, 0, NULL, NULL, 191, NULL, NULL),
+(57, 'LEASE', 23, 322, 4984, 24687, NULL, 1, 'NONE', 0, 0, NULL, NULL, NULL, NULL, NULL, '/upload/multi-file/2021-05-10/80-56-F2-B3-53-BD/1620584397637', 0, 0, NULL, NULL, 130, '360', 0);
 
 -- --------------------------------------------------------
 
@@ -912,17 +939,6 @@ CREATE TABLE `favourite` (
   `create_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `favourite`
---
-
-INSERT INTO `favourite` (`user_id`, `news_id`, `create_at`) VALUES
-('1', 28, '2021-05-04 11:33:02'),
-('1', 29, '2021-05-04 11:33:13'),
-('1', 30, '2021-05-04 11:33:16'),
-('1', 31, '2021-05-04 11:33:18'),
-('1', 32, '2021-05-04 11:33:17');
-
 -- --------------------------------------------------------
 
 --
@@ -944,7 +960,7 @@ CREATE TABLE `news_type` (
 INSERT INTO `news_type` (`id`, `name`, `price`, `description`, `level`) VALUES
 (1, 'Tin thường', 10000, 'Tin thường là loại tin có chữ đen và hiển thị bình thường ngoài trang chủ', 1),
 (2, 'Tin VIP1', 15000, 'Tin VIP1 là loại tin có chữ màu đỏ hiển thị bình thường ngoài trang chủ', 2),
-(3, 'Tin VIP đặt biệt', 20000, 'Tin VIP đặt biêt là loại tin có chữ đỏ, ưu tiên hiển thị đầu tiền ngoài trang chủ', 3);
+(3, 'Tin đặt biệt', 20000, 'Tin đặt biệt là loại tin có chữ màu đỏ ưu tiên hiển thị ngoài trang chủ', 3);
 
 -- --------------------------------------------------------
 
@@ -4150,7 +4166,18 @@ CREATE TABLE `roles` (
 
 INSERT INTO `roles` (`user_id`, `role`) VALUES
 ('1', 'ROLE_ADMIN'),
-('1', 'ROLE_USER');
+('1', 'ROLE_USER'),
+('US00000002', 'ROLE_USER'),
+('US00000003', 'ROLE_USER'),
+('US00000004', 'ROLE_USER'),
+('US00000005', 'ROLE_USER'),
+('US00000006', 'ROLE_USER'),
+('US00000007', 'ROLE_USER'),
+('US00000008', 'ROLE_USER'),
+('US00000009', 'ROLE_USER'),
+('US00000010', 'ROLE_ADMIN'),
+('US00000010', 'ROLE_USER'),
+('US00000011', 'ROLE_USER');
 
 -- --------------------------------------------------------
 
@@ -35852,15 +35879,26 @@ CREATE TABLE `users` (
   `birthday` datetime DEFAULT NULL,
   `phone` varchar(45) DEFAULT NULL,
   `credit` decimal(10,0) DEFAULT NULL,
-  `pass` varchar(100) DEFAULT NULL
+  `pass` varchar(100) DEFAULT NULL,
+  `create_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `email`, `user_name`, `birthday`, `phone`, `credit`, `pass`) VALUES
-('1', 'admin@gmail.com', 'Trần Thị Thùy Trang', '1997-10-10 00:00:00', '0123456789', '41810000', '$2a$10$SQhAcDGyt3iJhXEjkzQmtO37CIvTOIHYCbzArAob9SkLpHz3daZ3e');
+INSERT INTO `users` (`user_id`, `email`, `user_name`, `birthday`, `phone`, `credit`, `pass`, `create_at`) VALUES
+('1', 'admin@gmail.com', 'Trần Thị Thùy Trang', '1997-10-10 00:00:00', '0123456789', '0', '$2a$10$UdUBSDUgEYYnDLAruYGKr.fz34tcwSP3Z.L/f.MzwDDNXaSrQEUJi', '0000-00-00 00:00:00'),
+('US00000002', 'shynkill@gmail.com', 'Shynn', '1999-06-08 00:00:00', '0123456798', '0', '$2a$10$mKG7rb8WIIBmTrAWhckRrej4SgE8LXsOPzDa5XsGyEG3KXlRbv7SO', '0000-00-00 00:00:00'),
+('US00000003', 'baoan@gmail.com', 'Bảo An', '1995-12-06 00:00:00', '0809111122', '0', '$2a$10$/C6DitaAN9Ort3sbj6RcwuHZeSB8Lwe537W5GlCh2i/8uTXu8u.j.', '0000-00-00 00:00:00'),
+('US00000004', 'minhngoc@gmail.com', 'Võ Trần Minh Ngọc', '1997-11-15 00:00:00', '0908123456', '0', '$2a$10$BsGS2jIc4OmdbBig/d3Vi.HDCODlrc9o9l4fN66VsMgzRJIG28B8K', '0000-00-00 00:00:00'),
+('US00000005', 'honglinh@gmail.com', 'Võ Thị Hồng Lĩnh', '1992-09-12 00:00:00', '0907342473', '0', '$2a$10$1Rzo1MkKkJynIjjvTOI7yO1/miWhtSiycd0FPG5LTP0qk4mr1C7PK', '0000-00-00 00:00:00'),
+('US00000006', 'baolinh99@gmail.com', 'Nguyễn Trần Bảo Linh', '1999-11-02 00:00:00', '0905326111', '0', '$2a$10$vYrCc6TrsEuOHtU7aQpsz.YP.ZFm.JtIZmyMdCqAEp4twwgcDawPS', '0000-00-00 00:00:00'),
+('US00000007', 'ducy@gmail.com', 'Trần Đức Ý', '1999-06-23 00:00:00', '0904353173', '0', '$2a$10$Jacqie8PwikUqZHmTC8rPO93F07duMfZxP/MUOCCRg/WYKPIb1MVG', '0000-00-00 00:00:00'),
+('US00000008', 'quytruong@gmail.com', 'Ngô Quý Trường', '1998-12-01 00:00:00', '0283263788', '0', '$2a$10$PswpiHSNF/9htJesm8JTRuaKUuCbK5fpLCziG9nUBkdrACqO4VoDW', '0000-00-00 00:00:00'),
+('US00000009', 'xuanquynh@gmail.com', 'Đào Xuân Quỳnh', '2000-05-29 00:00:00', '0835876836', '0', '$2a$10$lFBf2Wlb8bhF.OivDiOFPe.XjAB/cLr.tmDVjPXxvnRSNhr5geIcy', '0000-00-00 00:00:00'),
+('US00000010', 'ductrong@gmail.com', 'Phùng Đức Trọng', '1999-08-08 00:00:00', '0902322727', '0', '$2a$10$AuPSVR5pQM9yMB2gLcdDcuOb6PnlCM1CxfOLpOoTi4nCaUo6/wFjO', '0000-00-00 00:00:00'),
+('US00000011', 'test@gmail.com', 'Cường', '1970-01-01 00:00:00', '0123456789', '0', '$2a$10$NNyGL8gYr4CYKkpYQ8BNi.bM2JyIPEidX7ylg/K42co3HUZSOzMT6', NULL);
 
 -- --------------------------------------------------------
 
@@ -47213,8 +47251,7 @@ ALTER TABLE `district`
 -- Indexes for table `favourite`
 --
 ALTER TABLE `favourite`
-  ADD PRIMARY KEY (`user_id`,`news_id`),
-  ADD KEY `favourite_to_bds_news` (`news_id`);
+  ADD PRIMARY KEY (`user_id`,`news_id`);
 
 --
 -- Indexes for table `news_type`
@@ -47278,19 +47315,25 @@ ALTER TABLE `ward`
 -- AUTO_INCREMENT for table `bds_ news`
 --
 ALTER TABLE `bds_ news`
-  MODIFY `news_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `news_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `categorys`
 --
 ALTER TABLE `categorys`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
 
 --
 -- AUTO_INCREMENT for table `district`
 --
 ALTER TABLE `district`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=710;
+
+--
+-- AUTO_INCREMENT for table `news_type`
+--
+ALTER TABLE `news_type`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `project`
@@ -47337,7 +47380,7 @@ ALTER TABLE `contacts`
 -- Constraints for table `detail_news`
 --
 ALTER TABLE `detail_news`
-  ADD CONSTRAINT `to_news` FOREIGN KEY (`news_id`) REFERENCES `bds_ news` (`news_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `dshbhjk` FOREIGN KEY (`news_id`) REFERENCES `bds_ news` (`news_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `district`
@@ -47349,7 +47392,6 @@ ALTER TABLE `district`
 -- Constraints for table `favourite`
 --
 ALTER TABLE `favourite`
-  ADD CONSTRAINT `favourite_to_bds_news` FOREIGN KEY (`news_id`) REFERENCES `bds_ news` (`news_id`),
   ADD CONSTRAINT `favourite_to_bds_news_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
