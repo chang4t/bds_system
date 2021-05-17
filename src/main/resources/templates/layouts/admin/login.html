@@ -71,6 +71,11 @@
   color: #fff
 }
 
+.error>small {
+  color: red;
+  font-size: 15px;
+}
+
 input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus,
   input:-webkit-autofill:active {
   -webkit-transition-delay: 9999s;
@@ -94,7 +99,9 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
             <button>Đăng nhập</button>
           </div>
         </div>
-        <div style="text-align: center; padding-top: 10px;"><a href="/" style="color: #fff">Quay lại trang chủ</a></span></div>
+        <div style="text-align: center; padding-top: 10px;">
+          <a href="/" style="color: #fff">Quay lại trang chủ</a></span>
+        </div>
       </form>
     </div>
     <ul class="bg-bubbles">
@@ -113,5 +120,24 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
       <li></li>
     </ul>
   </div>
+  <script>
+      $(document).ready(function() {
+        var urlParams = getUrlParamt();
+        var error = urlParams.get('error')
+
+        if (error == "true") {
+          alert("Thông tin đăng nhập không hợp lệ.")
+        }
+      });
+
+      /*
+       * Get paramater từ URL
+       */
+      function getUrlParamt() {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        return urlParams;
+      }
+    </script>
 </body>
 </html>

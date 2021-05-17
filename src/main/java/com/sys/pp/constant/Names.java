@@ -10,5 +10,5 @@ public class Names {
 	public static int FLAG_ON = 1;
 	
 	public static Integer DEFAULT_PAGE_NUMBER = 5;
-	public static Integer DEFAULT_PAGE_NUMBER_OF_HOME_NEWS = 6;
+	public static Integer DEFAULT_PAGE_NUMBER_OF_HOME_NEWS = 20;
 }

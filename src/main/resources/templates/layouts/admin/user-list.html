@@ -79,11 +79,13 @@
                 <div class="form-group">
                   <label for="pass">Quyền truy cập</label>
                   <div class="form-check">
-                    <input id="role_admin" class="form-check-input" type="checkbox" value=""> <label class="form-check-label" for="role_admin"> Quản trị viên </label>
+                    <input id="role_admin" class="form-check-input" type="checkbox"> <label class="form-check-label" for="role_admin"> Quản trị viên </label>
                   </div>
                   <div class="form-check">
-                    <input id="role_user" class="form-check-input" type="checkbox" value="" checked> <label class="form-check-label" for="role_user"> Nhà bất động sản </label>
+                    <input id="role_user" class="form-check-input" type="checkbox" checked> <label class="form-check-label" for="role_user"> Nhà bất động sản </label>
                   </div>
+                  <small class="validate" style="color: red;"
+                    id="validate_role"></small>
                 </div>
               </form>
             </div>
@@ -158,7 +160,7 @@
 					page = $("#page").val();
 				}
 
-				ajaxRequest("./user/get/" + page, "GET", null, function(data) {
+				ajaxRequest("/admin/user/get/" + page, "GET", null, function(data) {
 				    data.forEach((item) => {
 				    	item.credit = parseInt(item.credit).toLocaleString('en-US', {style : 'currency', currency : 'VND'});
 				    	item.birthday = formatDate(item.birthday);
@@ -172,7 +174,7 @@
 			}
 			
 			function save(data) {
-				ajaxRequest("./user/save", "POST", JSON.stringify(data), function(response) {
+				ajaxRequest("/admin/user/save", "POST", JSON.stringify(data), function(response) {
 					if (response.status == true) {
 						onCloseModal();
 						
@@ -195,7 +197,7 @@
 			}
 
 			function update(data, id) {
-				ajaxRequest("./user/update/" + id, "PUT", JSON.stringify(data), function(response) {
+				ajaxRequest("/admin/user/update/" + id, "PUT", JSON.stringify(data), function(response) {
 					if (response.status == true) {
 						var item = response.data;
 						item.credit = parseInt(item.credit).toLocaleString('en-US', {style : 'currency', currency : 'VND'});
@@ -222,7 +224,7 @@
 				var r = confirm("Xác nhận xóa [" + name + "]");
 
 				if (r == true) {
-					ajaxRequest("./user/delete/" + key, "DELETE", null, function(data) {
+					ajaxRequest("/admin/user/delete/" + key, "DELETE", null, function(data) {
 						obj.parents("tr").remove();
 						alert("Xóa thành công.");
 					});
@@ -233,7 +235,7 @@
 				var id = obj.parents("tr").find("td")[0].textContent;
 				$("#title_modal").html("Cập nhật");
 
-				ajaxRequest("./user/get/one/" + id, "GET", null, function(data) {
+				ajaxRequest("/admin/user/get/one/" + id, "GET", null, function(data) {
 					// set value into form
 					$("#indexUpdate").val(id);
 					$("#userName").val(data.userName);
@@ -243,6 +245,21 @@
 			        $('#pass').val("");
 			        
 			        $('#exampleModal').modal('show');
+				});
+				
+				ajaxRequest("/admin/user/get/role/" + id, "GET", null, function(data) {
+				  	console.log(data);
+			        if (data.includes("ROLE_ADMIN")) {
+			          $('#role_admin').prop('checked', true);
+			        } else {
+			          $('#role_admin').prop('checked', false);
+			        }
+			        
+			        if (data.includes("ROLE_USER")) {
+			          $('#role_user').prop('checked', true);
+			        } else {
+			          $('#role_user').prop('checked', false);
+			        }
 				});
 			}
 

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,6 +51,12 @@ public class UserController {
 	@RequestMapping(path = "/get/one/{id}", produces = "application/json; charset=UTF-8", method = RequestMethod.GET)
 	public Optional<Users> getById(@PathVariable String id) {
 		return userService.findById(id);
+	}
+
+	@ResponseBody
+	@RequestMapping(path = "/get/role/{id}", produces = "application/json; charset=UTF-8", method = RequestMethod.GET)
+	public List<String> getRoleById(@PathVariable String id) {
+		return roleService.findByUserId(id).stream().map(p -> p.getId().getRole()).collect(Collectors.toList());
 	}
 
 	@ResponseBody
@@ -102,7 +109,7 @@ public class UserController {
 	 */
 	@ResponseBody
 	@PutMapping(value = "/update/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json; charset=UTF-8")
-	public Object updateCategory(@RequestBody Map<String, String> paramater, @PathVariable String id) {
+	public Object updateUser(@RequestBody Map<String, String> paramater, @PathVariable String id) {
 		// validate data
 		Map<String, String> errors = this.validate(paramater, true);
 		Map<String, Object> result = new HashMap<>();
@@ -120,6 +127,39 @@ public class UserController {
 
 			userService.save(user);
 			result.put("data", user);
+
+			RolePK adminPK = new RolePK();
+			adminPK.setRole(Names.ROLES.ROLE_ADMIN.toString());
+			adminPK.setUserId(user.getUserId());
+
+			RolePK userPK = new RolePK();
+			userPK.setRole(Names.ROLES.ROLE_USER.toString());
+			userPK.setUserId(user.getUserId());
+
+			Optional<Roles> adminRole = roleService.findById(adminPK);
+			Optional<Roles> userRole = roleService.findById(userPK);
+
+			// update roles
+			if ("true".equals(paramater.get("role_user"))) {
+				if (!userRole.isPresent()) {
+					roleService.save(new Roles(userPK));
+				}
+			} else {
+				if (userRole.isPresent()) {
+					roleService.deleteById(userPK);
+				}
+			}
+
+			if ("true".equals(paramater.get("role_admin"))) {
+				if (!adminRole.isPresent()) {
+					roleService.save(new Roles(adminPK));
+				}
+			} else {
+				if (adminRole.isPresent()) {
+					roleService.deleteById(adminPK);
+				}
+			}
+
 			return result;
 		} catch (Exception ex) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "OBJECT_EXISTS");

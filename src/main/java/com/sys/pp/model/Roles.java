@@ -19,6 +19,10 @@ public class Roles implements Serializable {
 
 	public Roles() {
 	}
+	
+	public Roles(RolePK id) {
+		this.id = id;
+	}
 
 	public RolePK getId() {
 		return this.id;
