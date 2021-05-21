@@ -117,11 +117,13 @@
           <!-- Card Body -->
           <div class="card-body" style="padding: 12px; border: none;">
             <div class="list-group">
+              <div th:if="${#lists.size(new_regist) == 0}">Chưa có tin nào mới..</div>
               <div th:each="item: ${new_regist}" class="list-group-item list-group-item-action" style="padding: 5px; border: none;">
                 <h5 style="font-size: 1.1rem; line-height: 25px; color: #4e73df; font-weight: bold;" th:text="${item.getTitle()}"></h5>
                 <p th:text="${item.getCreateBy()}" style="font-size: 1rem;"></p>
                 <hr style="padding: 0; margin: 5px">
               </div>
+              <center th:if="${#lists.size(new_regist) > 0}" style="padding:10px"><a href="/admin/news?f=notapproved">Duyệt tin</a></center>
             </div>
           </div>
         </div>
