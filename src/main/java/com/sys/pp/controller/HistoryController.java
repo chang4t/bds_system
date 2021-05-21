@@ -77,7 +77,7 @@ public class HistoryController {
 
 	private List<PostInfomation> getHistooryPost(Users user, FavouriteRepository favouriteRepository, int pageNumber) {
 		List<BdsNew> posts = bDSNewService.findByUserId(user.getUserId(), pageNumber);
-		posts = posts.stream().filter(p -> p.getDeleteFlg() == 0 && p.getStatusFlg() == 1).collect(Collectors.toList());
+		//posts = posts.stream().filter(p -> p.getDeleteFlg() == 0 && p.getStatusFlg() == 1).collect(Collectors.toList());
 
 		String userId = null;
 		if (user != null) {
