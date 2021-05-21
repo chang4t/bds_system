@@ -110,36 +110,36 @@
                   <div th:if="${!infomation.isApproved()}">
                     <div class="alert alert-warning" role="alert">Bài viết đang chờ phê duyệt.</div>
                   </div>
-                  <div th:if="${infomation.isHasImage()}" class="full-screen-show">
-                    <div class="worksingle-slide-footer row">
-                      <div class="col-1 align-self-center">
-                        <a href="#multi-item-example" role="button" data-bs-slide="prev"> <i class='bx bxs-chevron-left bx-sm text-dark'></i>
-                        </a>
-                      </div>
-                      <div id="multi-item-example" class="col-10 carousel slide" data-bs-ride="carousel">
-                        <!--Start Slides-->
-                        <div id="slide-show_id" class="carousel-inner" role="listbox">
-                          <!--First slide-->
-                          <div th:each="listImage: ${infomation.getImages()}" class="carousel-item">
-                            <div class="row" style="height: 70px; float: left; width: 100%;">
-                              <div style="width: 20%" th:each="itemImage: ${listImage}">
-                                <a class="templatemo-slide-link" th:href="${itemImage}"> <img style="height: 70px; width: 100%;" class="img-fluid border rounded" th:src="${itemImage}"
-                                  alt="preview">
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-1 align-self-center text-end">
-                        <a href="#multi-item-example" role="button" data-bs-slide="next"> <i class='bx bxs-chevron-right bx-sm text-dark'></i>
-                        </a>
-                      </div>
-                    </div>
-                    <div id="templatemo-slide-link-target" class="mb-3" style="margin-top: 10px;">
-                      <img class="img-fluid border rounded" th:src="${infomation.getImages().get(0).get(0)}" alt="Card image cap">
-                    </div>
-                  </div>
+	              <div th:if="${infomation.isHasImage()}" class="full-screen-show">
+	                <div class="worksingle-slide-footer row">
+	                  <div class="col-1 align-self-center">
+	                    <a href="#multi-item-example" role="button" data-bs-slide="prev"> <i class='bx bxs-chevron-left bx-sm text-dark'></i>
+	                    </a>
+	                  </div>
+	                  <div id="multi-item-example" class="col-10 carousel slide" data-bs-ride="carousel">
+	                    <!--Start Slides-->
+	                    <div id="slide-show_id" class="carousel-inner" role="listbox">
+	                      <!--First slide-->
+	                      <div th:each="listImage: ${infomation.getImages()}" class="carousel-item">
+	                        <div class="row" style="height: 70px; float: left; width: 100%; max-width: 750px;">
+	                          <div style="width: 20%" th:each="itemImage: ${listImage}">
+	                            <a class="templatemo-slide-link" th:href="${itemImage}"> <img onclick="imageOnlick($(this))" style="height: 70px; width: 100%;" class="img-fluid border rounded"
+	                              th:src="${itemImage}" alt="preview">
+	                            </a>
+	                          </div>
+	                        </div>
+	                      </div>
+	                    </div>
+	                  </div>
+	                  <div class="col-1 align-self-center text-end">
+	                    <a href="#multi-item-example" role="button" data-bs-slide="next"> <i class='bx bxs-chevron-right bx-sm text-dark'></i>
+	                    </a>
+	                  </div>
+	                </div>
+	                <div id="templatemo-slide-link-target" class="mb-3" style="margin-top: 10px; text-align: center;">
+	                  <img class="img-fluid border rounded" th:src="${infomation.getImages().get(0).get(0)}" alt="Card image cap">
+	                </div>
+	              </div>
                   <div class="tieu-de" style="border: solid 1px #ddd; padding: 10px; margin-top: 20px">
                     <h2 class="worksingle-heading h3 pb-3 light-300 typo-space-line" th:text="${infomation.getTitle()}"></h2>
                     <p th:text="${infomation.getAddress()}" style="color: #333; margin-top: 20px"></p>

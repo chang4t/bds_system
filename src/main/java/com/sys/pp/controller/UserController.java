@@ -237,7 +237,7 @@ public class UserController {
 			errors.put("validate_userName", "Tên người dùng không được để trống");
 		}
 
-		if (null != paramater.get("categoryName") && paramater.get("categoryName").length() < 5) {
+		if (null != paramater.get("userName") && paramater.get("userName").length() < 5) {
 			errors.put("validate_userName", "Tên người dùng phải lớn hơn 5 kí tự");
 		}
 

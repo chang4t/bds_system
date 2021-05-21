@@ -60,7 +60,7 @@ function getData() {
 	};
 
 	$("#ladding_layer_id").show(500);
-	ajaxRequest("/admin/statistical/province", "POST", JSON.stringify(data), function(res) {
+	ajaxRequest("/admin/statistical", "POST", JSON.stringify(data), function(res) {
 		$("#content_data").empty();
 		setTimeout(function() {
 			res.forEach((item) => {

@@ -46,7 +46,7 @@ public class StatisticalController {
 	}
 
 	@ResponseBody
-	@PostMapping(path = "/province", consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json; charset=UTF-8")
+	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json; charset=UTF-8")
 	public List<StatisticalResult> province(@RequestBody Map<String, String> paramater) {
 		Type type = this.getTypeById(paramater.get("type"));
 		if (null == type) {
