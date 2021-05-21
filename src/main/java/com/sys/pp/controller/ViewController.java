@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.security.Principal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -19,11 +20,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.sys.pp.constant.GemRealtyConst;
 import com.sys.pp.constant.GemRealtyService;
+import com.sys.pp.constant.Names;
 import com.sys.pp.controller.custommodel.KeyValue;
 import com.sys.pp.controller.custommodel.PostInfomation;
 import com.sys.pp.model.BdsNew;
@@ -44,6 +48,7 @@ import com.sys.pp.repo.ProvinceRepository;
 import com.sys.pp.repo.StreetRepository;
 import com.sys.pp.repo.UserRepository;
 import com.sys.pp.repo.WardRepository;
+import com.sys.pp.util.NumberUtils;
 import com.sys.pp.util.StringUtils;
 
 @Controller
@@ -82,6 +87,7 @@ public class ViewController {
 			DecimalFormat formatter = new DecimalFormat("###,###,###");
 			DetailNew detailNews = news.getDetailNew();
 
+			info.setNewsId(String.valueOf(news.getNewsId()));
 			List<List<String>> images = GemRealtyService.makeImagesLinkList(detailNews.getImages());
 			if (images != null) {
 				info.setImages(images);
@@ -210,6 +216,36 @@ public class ViewController {
 			LOGGER.error("Xử lý hiển thị tin lỗi", ex);
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Lỗi tải tin");
 		}
+	}
+	
+	/*
+	 * 
+	 * @return OK status 200
+	 */
+	@PutMapping("close/{ids}")
+	@ResponseBody
+	public String close(@PathVariable String ids) {
+		String[] idArr = ids.split("t");
+		List<String> idList = Arrays.asList(idArr);
+
+		for (String id : idList) {
+			if (!NumberUtils.isNumeric(id)) {
+				continue;
+			}
+
+			Optional<BdsNew> item = bDSNewRepository.findById(Integer.valueOf(id));
+			if (item.isPresent()) {
+				BdsNew bdsNew = item.get();
+
+				if (bdsNew.getDeleteFlg() == 1) {
+					continue;
+				}
+
+				bdsNew.setDeleteFlg(Names.FLAG_ON);
+				bDSNewRepository.save(bdsNew);
+			}
+		}
+		return "OK";
 	}
 
 	private List<KeyValue> getRealEstateNearby(int provinceId) {
