@@ -101,7 +101,7 @@ public class BdsNewsController {
 	/**
 	 * Update status_flg = 1
 	 * 
-	 * @return JSON List<Category>
+	 * @return OK status 200
 	 */
 	@PutMapping("approved/{ids}")
 	@ResponseBody
@@ -132,7 +132,38 @@ public class BdsNewsController {
 	/**
 	 * Update status_flg = 1
 	 * 
-	 * @return JSON List<Category>
+	 * @return OK status 200
+	 */
+	@PutMapping("undo/{ids}")
+	@ResponseBody
+	public String undo(@PathVariable String ids) {
+		String[] idArr = ids.split("t");
+		List<String> idList = Arrays.asList(idArr);
+
+		for (String id : idList) {
+			if (!NumberUtils.isNumeric(id)) {
+				continue;
+			}
+
+			Optional<BdsNew> item = bDSNewRepository.findById(Integer.valueOf(id));
+			if (item.isPresent()) {
+				BdsNew bdsNew = item.get();
+
+				if (bdsNew.getDeleteFlg() == 0) {
+					continue;
+				}
+
+				bdsNew.setDeleteFlg(Names.FLAG_OFF);
+				bDSNewRepository.save(bdsNew);
+			}
+		}
+		return "OK";
+	}
+
+	/**
+	 * Update status_flg = 1
+	 * 
+	 * @return OK status 200
 	 */
 	@PutMapping("cancel/{ids}")
 	@ResponseBody
@@ -149,7 +180,7 @@ public class BdsNewsController {
 			if (item.isPresent()) {
 				BdsNew bdsNew = item.get();
 
-				if (bdsNew.getDeleteFlg() == 1 || bdsNew.getStatusFlg() == 1) {
+				if (bdsNew.getDeleteFlg() == 1) {
 					continue;
 				}
 
@@ -158,19 +189,6 @@ public class BdsNewsController {
 			}
 		}
 		return "OK";
-	}
-
-	/**
-	 * Delete by key
-	 * 
-	 * @param Integer id
-	 * 
-	 * @return none
-	 */
-	@ResponseBody
-	@RequestMapping(path = "/delete/{id}", produces = "application/json; charset=UTF-8", method = RequestMethod.DELETE)
-	public void deleteById(@PathVariable Integer id) {
-		bDSNewRepository.deleteById(id);
 	}
 
 	private List<PostInfomation> makeAPostInfomation(List<BdsNew> bdsNewList) {

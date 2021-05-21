@@ -31,7 +31,7 @@ input {
           <span class="icon text-white-50"> <i class="fas fa-check-square"></i>
           </span> <span class="text">Duyệt mục đã chọn</span>
         </div>
-        <div style="margin-bottom: 10px;" onclick="cancelAll()" class="btn btn-warning btn-icon-split"> <span
+        <div style="margin-bottom: 10px;" onclick="deleteAll()" class="btn btn-warning btn-icon-split"> <span
           class="icon text-white-50"> <i class="fa fa-times"></i>
         </span> <span class="text">Hủy mục đã chọn</span>
         </div>
@@ -108,7 +108,7 @@ input {
 			<tr id="content_id_{{newsId}}" style="{{^canceled}}{{^approved}} background-color: #EFEFFB; {{/approved}}{{/canceled}} {{#canceled}}background-color: #ddd;{{/canceled}}">
 				<td>{{newsId}}<br/>
 					<div style="margin-left: 20px;">
-  						<input {{^approved}}name="idchecked"{{/approved}} class="form-check-input checkbox_class" type="checkbox" value="{{newsId}}" {{^canceled}}{{#approved}} disabled {{/approved}}{{/canceled}} {{#canceled}}disabled{{/canceled}}>
+  						<input {{^canceled}}name="idchecked"{{/canceled}} class="form-check-input checkbox_class" type="checkbox" value="{{newsId}}" {{#canceled}}disabled{{/canceled}}>
 					</div>
 				</td>
 				<td>{{title}}</td>
@@ -136,17 +136,26 @@ input {
 
 				</td>
 				<td>
-					<a href="{{urlPost}}" class="btn btn-success btn-circle btn-sm">
-                        <i class="fas 	fa fa-bars"></i>
-                    </a>
+					{{^canceled}}
+					    <a href="{{urlPost}}" class="btn btn-success btn-circle btn-sm">
+                            <i class="fas 	fa fa-bars"></i>
+                        </a>
+					{{/canceled}}
 					{{^canceled}}{{^approved}}
                     	<a href="#" onclick="approvedOne('{{newsId}}', '{{title}}')" class="btn btn-info btn-circle btn-sm">
                        	 	<i class="fas fa-check-square"></i>
                     	</a>
 					{{/approved}}{{/canceled}}
-					<a href="#" onclick="onDelete($(this), '{{newsId}}', '{{title}}');" class="btn btn-danger btn-circle btn-sm">
-                        <i class="fas fa-trash"></i>
-                    </a>
+					{{^canceled}}
+					    <a href="#" onclick="deleteOne('{{newsId}}', '{{title}}');" class="btn btn-danger btn-circle btn-sm">
+                            <i class="fas fa-trash"></i>
+                        </a>
+					{{/canceled}}
+					{{#canceled}}
+					    <a href="#" onclick="undoOne('{{newsId}}', '{{title}}');" class="btn btn-warning btn-circle btn-sm">
+                            <i class="fas fa-undo"></i>
+                        </a>
+					{{/canceled}}
 				</td>
 			</tr>
 		</script>
@@ -214,7 +223,24 @@ input {
     		     approvedOne(allVals, null);
 			}
 			
-			function cancelAll() {
+			function deleteOne(id, name) {
+				var r;
+				
+				if(name == null) {
+				  r = confirm("Hủy " + id.split("t").length + " mục đã chọn");
+				} else {
+				  r = confirm("Hủy mục đã chọn - [" + name + "]");
+				}
+
+				if (r == true) {
+					ajaxRequest("/admin/news/cancel/" + id, "PUT", null, function(data) {
+					  alert("Hủy thành công bài viết - [" + name + "]" );
+					  location.reload();
+					});
+				}
+			}
+			
+			function deleteAll() {
     		     var allVals = $("input[name=idchecked]:checked").map(function () {
     		       return this.value;
     		     }).get().join("t");
@@ -223,28 +249,20 @@ input {
     		       alert("Vui lòng chọn ít nhất 1 mục.");
     		       return;
     		     }
-    		     
-				var r = confirm("Hủy " + allVals.split("t").length + " mục đã chọn");
+    		     deleteOne(allVals, null);
+			}
+			
+			function undoOne(id, name) {
+				var r = confirm("Bỏ hủy bài viết [" + name + "]");;
 
 				if (r == true) {
-					ajaxRequest("/admin/news/cancel/" + allVals, "PUT", null, function(data) {
-					  alert("Hủy thành công mục đã chọn.");
+					ajaxRequest("/admin/news/undo/" + id, "PUT", null, function(data) {
+					  alert("Bỏ hủy thành công mục đã chọn.");
 					  location.reload();
 					});
 				}
 			}
 
-			function onDelete(obj, key, name) {
-				var r = confirm("Xác nhận xóa [" + name + "]");
-
-				if (r == true) {
-					ajaxRequest("/admin/news/delete/" + key, "DELETE", null, function(data) {
-						obj.parents("tr").remove();
-						alert("Xóa thành công.");
-					});
-				}
-			}
-			
 			function ajaxRequest(url, method, data, calBackFuntion) {
 				var config = {
 					method : method,
